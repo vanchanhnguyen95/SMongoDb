@@ -20,3 +20,4 @@ Gõ !+số thì sẽ tự động chạy câu lệnh lịch sử dòng đó
 - linux có phân biệt hoa thường
 
 - Clear màn hình: clear
+

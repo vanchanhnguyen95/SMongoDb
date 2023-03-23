@@ -1,0 +1,11 @@
+Xem tất cả các package đã cài đặt trên linux
+apt list
+
+- Update tất cả list package
+apt update
+
+- Cài đặt nano
+apt install nano
+
+- Remove nano
+apt remove nano
