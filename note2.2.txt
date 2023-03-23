@@ -1,0 +1,22 @@
+docker run ubuntu
+
+- Để xem các container đang chạy trên máy
+docker ps
+
+- Để sử dụng hệ điều hành ubuntu
+docker run -it ubuntu
+### Câu lệnh linux
+- In bất kì gì đó ra màn hình
+echo hello world
+- Cho biết user hiện tại đang tương tác là user nào
+whoami
+- Cho biết vị trí của shell chỗ nào
+echo $0
+- Cho biết thư mục hiện tại là thư mục nào
+pwd
+- Cho biết tất cả câu lệnh trước đó đã thực hiện
+history
+Gõ !+số thì sẽ tự động chạy câu lệnh lịch sử dòng đó
+- linux có phân biệt hoa thường
+
+- Clear màn hình: clear
