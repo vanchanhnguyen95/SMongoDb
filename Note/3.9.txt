@@ -1,0 +1,12 @@
+Bài 3.9: Expose port
+Cách Expose port cho ứng dụng bên ngoài chạy
+
+FROM node:18.5.0-alpine3.16
+WORKDIR /app
+COPY . .
+RUN npm install
+ENV API_PATH =http://10.0.10.146:9200
+EXPOSE 4200
+
+thực tế khi mà gõ câu lệnh này ko có nghĩa là docker giúp mình export này ra bên ngoài sử dụng
+Thực tế mình có thể chạy nội bộ port khác được, còn port này giúp EXPOSE ra ngoài sử dụng
