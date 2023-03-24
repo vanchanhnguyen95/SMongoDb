@@ -1,0 +1,20 @@
+Bài 3.5: Docker base image
+
+1. Tạo file Dockerfile
+FROM node:18.5.0-alpine3.16
+
+
+2. Câu lệnh build dockerfile
+docker build -t angular-app D:\Project\te-42\Docker\angular-app-docker
+=> build xong đã có images
+- xem các image hiện tại: docker images
+
+2. Câu lệnh run container
+Sau khi có image thì container mới chạy được
+docker run -it angular-app
+
+- docker run -it angular-app bash =>  Lỗi
+=> phiên bản hiện tại alpine3 ko hỗ trợ zh mà hỗ trợ sh thôi
+
+- Cần chạy lại: docker run -it angular-app sh
+vào kiểm tra được là đã chạy đc hệ điều hành alpine
