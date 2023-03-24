@@ -1,0 +1,15 @@
+3.4: Tìm hiểu Dockerfile
+Dockerfile: nó chỉ là 1 document dạng text, nó bao gồm tất cả các câu lệnh mà 1 user dùng để thực thi các câu lệnh để docker tập hợp thành image
+
+- Câu lệnh FROM: bản chất docker image nó cần phải có 1 cái OS, nó bảo gồm
+- Câu lệnh WORKDIR: chỉ định thư mục làm việc, nếu không nói gì hay ghi dấu "." thì làm việc tại thư mục gốc
+- Câu lệnh COPY: sẽ copy hết tất cả các file các bạn chỉ định vào thư mục làm việc WORKDIR
+- Câu lệnh ADD: na ná như lệnh COPY nhưng ADD có thể lấy 1 file từ địa chỉ Url nào đó trên mạng
+Ví dụ lấy file linece từ url hoặc file cấu hình từ file nào đó 
+- Câu lệnh RUN: là câu lệnh thực thi khi build image
+- Câu lệnh ENV: xét biến môi trường cho image này
+- Câu lệnh EXPOSE: khi chạy ứng dụng này ví dụ có port 4200, mình phải expose sang 1 port khác hoặc giữ nguyên port,
+Ví dụ docker thì chạy port 4200, máy vật lý chạy 4201
+- Câu lệnh USER: nó sẽ bao gồm 1 loạt các lệnh như: tạo user, xác định quyền cho user đó, chỉ có user đó mới có quyển chạy trên ứng dụng này thôi
+- Câu lệnh CMD, ENTRYPOINT: xác định các câu lệnh cần sử dụng để thực thi khi mà chúng ta bắt đầu 1 container hoặc là 1 chỉ định nào đó tại thời điểm runtime
+- Câu lệnh ENTRYPOINT:
