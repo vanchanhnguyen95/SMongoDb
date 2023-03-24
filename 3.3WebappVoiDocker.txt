@@ -47,3 +47,11 @@ ng --version
 
 C:\Users\chanhnv\AppData\Local
 
+2,Add material
+ng add @angular/material
+
+ng g @angular/material:navigation navigation
+
+ng g @angular/material:dashboard dashboard
+
+
