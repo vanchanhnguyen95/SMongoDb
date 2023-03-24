@@ -1,0 +1,23 @@
+Bài 3.8: Docker Environment
+Tìm hiểu cách để xác định tạo ra 1 biến enviroment
+
+FROM node:18.5.0-alpine3.16
+WORKDIR /app
+COPY . .
+RUN npm install
+ENV API_PATH =http://10.0.10.146:9200
+
+-- Cho build lại
+docker build -t angular-app .
+Vẫn đang bị vấn đề vẫn chạy lại câu lệnh: npm install
+
+-- Chạy lại 
+ docker run -it angular-app sh
+-- Làm sao để cho in ra hết câu lệnh ra
+printenv
+
+-- Muốn API_PATH thì như nào
+printenv printenv
+
+- Không sử dụng printenv mà dùng echo
+echo $API_PATH
