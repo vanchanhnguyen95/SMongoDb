@@ -3,7 +3,6 @@ Bài 3.5: Docker base image
 1. Tạo file Dockerfile
 FROM node:18.5.0-alpine3.16
 
-
 2. Câu lệnh build dockerfile
 docker build -t angular-app D:\Project\te-42\Docker\angular-app-docker
 => build xong đã có images

@@ -1,0 +1,17 @@
+Bài 3.6: Copy file và directories
+- Cách copy được ít file, nhiều file
+
+***********
+FROM node:18.5.0-alpine3.16
+WORKDIR /app
+COPY . .
+
+copy hết tất cả vào thư mục app
+
+***********
+build lại:
+docker build -t angular-app D:\Project\te-42\Docker\angular-app-docker
+
+**************************
+ignore các file không muốn copy
+Sử dụng file .dockerignore
