@@ -1,0 +1,49 @@
+* Cài đặt node js
+1. Cách 1: Cài đặt Node.js và npm từ NodeSource
+NodeSource là một công ty tập trung vào việc cung cấp hỗ trợ cho các doanh nghiệp và họ duy trì một kho lưu trữ chứa các phiên bản mới nhất của Node.js.
+
+Sử dụng kho lưu trữ này nếu bạn cần cài đặt một phiên bản cụ thể của Node.js. Tại thời điểm viết, kho lưu trữ NodeSource cung cấp các phiên bản sau – v14.x, v13.x, v12.x và v10.x. Trong bài viết này HOSTVN sẽ cài đặt phiên bản LTS hiện tại của Node.js, phiên bản 14.x.
+
+1.1. Bước 1: Kích hoạt kho lưu trữ NodeSource
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+
+1.2. Bước 2: Cài đặt Node.js
+sudo apt install nodejs -y
+
+Để kiểm tra phiên bản Nodejs các bạn dùng lệnh sau
+node --version
+
+
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+sudo apt install nodejs
+
+* cài đặt angular cli theo version
+npm i -g @angular/cli@11.2.12
+npm i @angular/cli@11.2.12
+
+* npm command npm list gives the packages installed in the current folder.
+kiểm tra angular cli đã được install ở global chưa
+npm list -g --depth 0
+
+* Local version: kiểm tra angular cli đã được install ở local chưa
+npm list --depth 0
+
+* Check xem powershell có lỗi ko: chạy lệnh này sửa lỗi
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+* Cách uninstall Anguylar cli
+npm uninstall @angular/cli (uninstall ở local)
+npm uninstall -g @angular/cli (uninstall ở global)
+npm cache clean --force
+
+* check angular version
+ng --version
+
+1. Tạo 1 web app angular
+* ng new angular-app-docker
+* cd ng new angular-app-docker
+
+* ng serve
+
+C:\Users\chanhnv\AppData\Local
+

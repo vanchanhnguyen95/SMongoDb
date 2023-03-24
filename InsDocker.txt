@@ -1,0 +1,31 @@
+Cài đặt docker trên Ubuntu 18.04
+* kiểm tra phiên bản Ubuntu
+ lsb_release -a
+ 
+
+* Cài đặt một số chương trình hỗ trợ 
+# sudo apt update
+# sudo apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
+
+* Xóa các biên bản docker cũ nếu có
+# apt-get remove docker docker-engine docker.io containerd runc
+
+* Thêm thông tin Docker GPG Key chính chủ vào hệ thống.
+# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+* Giờ ta thêm thông tin Docker Repository.
+# sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+# sudo apt update
+
+* Tiến hành cài đặt Docker trên  18.04.
+# sudo apt install docker-ce docker-ce-cli -y
+
+* Khởi động dịch vụ Docker và cấu hình để Docker luôn khởi động cùng máy chủ.
+# systemctl start docker
+# systemctl enable docker
+
+* Kiểm tra trạng thái dịch vụ 
+# systemctl status docker
+
+* Kiểm tra thông tin về dịch vụ  Docker
+# docker info
