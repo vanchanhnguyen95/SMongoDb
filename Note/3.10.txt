@@ -5,7 +5,7 @@
 chỉ được pháp dùng file đó thôi, ngoài ra nó không đc quyền tác động đến file khác
 
 - Chạy container:
-docker run -it angular-app -zh
+docker run -it angular-app -sh
 
 * Chạy câu lệnh để vào hệ điều hành alpine
 
@@ -17,13 +17,38 @@ addgroup app
 adduser -S -G app app
 groups app
 
-Các bước tạo 1 group, tạo user, add user vào group
+Các  bước tạo 1 group, tạo user, add user vào group
 * 1
 RUN addgroup app && adduser -S -G app app
 * 2 Build lại
 docker run -it angular-app sh
-*
+* Xem danh sách user vào, tên group
 
 
+**
+FROM node:18.15.0-alpine3.17
+RUN addgroup app && adduser -S -G app app
+USER app
+WORKDIR /app
+COPY . .
+RUN npm install
+ENV API_PATH =http://10.0.10.146:9200
+EXPOSE 4201
+
+# shell form
+# CMD npm start
+# Exec form: nhanh hơn, thuận tiện hơn
+CMD [ "npm" , "start" ]
+ENTRYPOINT [ "npm" , "start" ]
+
+
+
+
+
+*************
+Nếu có nhiều dòng giống nhau thì dòng cuối cùng luôn được thực thi
+ENTRYPOINT giống CMD nhưng muốn đè được ENTRYPOINT rất khó
+=> lần sau muốn chạy được container khi có dòng ENTRYPOINT thì phải sửa lại như sau:
+docker run angular-app --entrypoint
 
 
