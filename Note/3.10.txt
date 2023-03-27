@@ -42,9 +42,6 @@ CMD [ "npm" , "start" ]
 ENTRYPOINT [ "npm" , "start" ]
 
 
-
-
-
 *************
 Nếu có nhiều dòng giống nhau thì dòng cuối cùng luôn được thực thi
 ENTRYPOINT giống CMD nhưng muốn đè được ENTRYPOINT rất khó

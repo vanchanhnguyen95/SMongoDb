@@ -1,3 +1,8 @@
+Cách tăng tốc build image lên
+Làm thế nào có thể cache được, nó chỉ chạy khi có thay đổi?
+Tìm cách không phải "npm install" mỗi lần build image nữa
+=> COPY file package.json trước
+
 FROM node:18.15.0-alpine3.17
 RUN addgroup app && adduser -S -G app app
 USER app
