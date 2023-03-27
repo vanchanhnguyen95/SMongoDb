@@ -1,0 +1,29 @@
+3.10
+- Khi chúng ta chạy container dựa trên image, thì user đang thực thi mặc định là root
+=> Điều này nó không tốt
+- Khi mà chúng ta chạy 1 ứng dungj thì chúng ta nên tạo 1 user riêng và phân quyền riêng,
+chỉ được pháp dùng file đó thôi, ngoài ra nó không đc quyền tác động đến file khác
+
+- Chạy container:
+docker run -it angular-app -zh
+
+* Chạy câu lệnh để vào hệ điều hành alpine
+
+docker run -it alipne
+Unable to find image 'alipne:latest' locally
+
+* Tạo 1 group "app"
+addgroup app
+adduser -S -G app app
+groups app
+
+Các bước tạo 1 group, tạo user, add user vào group
+* 1
+RUN addgroup app && adduser -S -G app app
+* 2 Build lại
+docker run -it angular-app sh
+*
+
+
+
+
