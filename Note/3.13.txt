@@ -1,0 +1,7 @@
+Xóa những image rác đi
+Remove Images
+“docker image prune”: Clear all dangling image
+“docker container prune”: Clear all dangling container
+“docker image rm {image name:tag/image id} {image name:tag/image id}”
+“docker image remove {image name:tag}”: remove image with a specific 
+tag.
