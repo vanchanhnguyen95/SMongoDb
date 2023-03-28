@@ -1,0 +1,3 @@
+Bài 4.3: View logs
+Tìm hiểu cách như thế nào để có thể xem log
+docker logs --help
