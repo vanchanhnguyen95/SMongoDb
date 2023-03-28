@@ -1,0 +1,7 @@
+Bài 4.6: Stoping and starting containers
+* stop 1 container đang chạy
+docker stop [container name]
+
+* Sự khác biệt giữa start và run
+- run: chúng ta sẽ chạy 1 container mới
+- start: chúng ta chạy lại 1 container đã stop
