@@ -1,0 +1,18 @@
+Tìm hiểu về tag và cách đánh tag hiệu quả
+
+*
+Mỗi lần build mà cứ để -t thì mặc định nó là lastest
+Nếu cứ để như vậy thì rất nguy hiểm, Vì sẽ không giữ được version của nhiều thời điểm
+Giải sử build lỗi thì ko thể lấy được version trước đó mà bị ghi đè
+
+* Từ tag đang có tạo thành 1 tag tên mới theo ý mình
+Cách 1:
+ docker image tag angular-app:lastest angular-app:v1
+Cách 2: 
+ docker build -t angular-app:v1 .
+==> Để ý có image có ID giống
+
+* Các tag này có thể tự động gắn bằng CI/CD
+
+* Cách gán Image thành Image là lastest (lây theo ID, chỉ định ID muốn gắn vào)
+docker image tag 4b9 angular-app:lastest
