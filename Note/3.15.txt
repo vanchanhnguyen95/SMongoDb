@@ -1,0 +1,13 @@
+Bài 3.15: Sharing images
+
+docker build -t angular-app:v1 .
+
+* Các bước
+1. Build 1 image có tên y hệt trên docker hub từ image hiện có
+docker image tag f34296497222 lemonnguyen/angular-app:v2
+
+2. Kết nối docker local với hub
+docker login
+
+3. Push lên hub theo hướng dẫn
+docker push	lemonnguyen/angular-app:v2
