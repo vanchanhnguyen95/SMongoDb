@@ -1,0 +1,6 @@
+Bài 4.5: Thao tác với command trong running container
+Học cách thực thi 1 cái lệnh trong 1 container đang chạy
+
+Khác nhau giữa câu lệnh: docker exec và docker run
+- docker run: nó sẽ start 1 container mới, đồng thời nó sẽ chạy 1 command
+- docker exec: thì nó sẽ thực hiện 1 command nào đó nhưng mà đang trên 1 container đang chạy
