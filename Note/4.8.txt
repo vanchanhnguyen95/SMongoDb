@@ -1,0 +1,8 @@
+Bài 4.8: Tìm hiểu Containers File System
+Chứng minh nếu chạy 2 container riêng biệt, nó base chung 1 image
+
+* Nếu chúng ta tạo 1 file trên container, sau đó tắt đi, nó bị mất => Làm sao để giữ lại Hoặc là
+chúng ta muốn chia sẻ các file giữa những container với nhau
+
+=> Giải quyết 2 cách trên là Volume:
+*** Volume: nó giống như 1 cái bộ nhớ trung gian, nó đóng vai trò là nó map ổ cứng vật lý trên máy của các bạn để container này lưu dữ liệu vào đó, khi container start lên thì nó lấy dữ liệu từ volume
