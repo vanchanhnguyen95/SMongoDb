@@ -1,0 +1,10 @@
+Bài 4.7: Removing containers
+* remove 1 container đang chạy
+docker rm -f [ID]
+- Không thể remove 1 container đang running, phải stop nó
+
+* Câu lệnh Stop container có tên là b1
+docker stop b1
+
+* Câu lệnh Chỉ remove những container đã stop thôi, những container đang chạy sẽ để lại
+docker container prune
