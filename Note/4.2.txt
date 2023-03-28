@@ -1,0 +1,16 @@
+Docker Containers
+
+* Kiểm tra xem có container nào đang chạy
+docker ps
+
+* Để chạy container
+docker run angular-app
+
+* Đang gặp vấn đề đang chạy container thì chưa thao tác được gì cả, phải stop container
+=> Vì đang chạy ở chế độ
+=> Muốn đổi chế độ thì cần thay đổi lệnh: thành chế độ detect mode
+docker run -d angular-app
+
+* Chạy container ở chế độ detect mode kèm theo tên thì sẽ chạy được nhiều container riêng biệt, không ảnh hưởng
+docker run -d --name lemon-angular-app angular-app
+Nếu mình làm gì trên mỗi container thì nó ko ảnh hưởng gì cả
