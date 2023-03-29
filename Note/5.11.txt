@@ -1,0 +1,15 @@
+Bài 5.11: Running test
+Cách chạy test trên docker container luôn ko cần chạy ở ngoài
+
+- Chúng ta nên chạy test hoàn hảo ở bên ngoài, còn docker là cái cuối cùng
+
+Backend
+* Cấu trúc backend như nào để tests
+* Trong thư mục tests
+- thêm thư mục unit
+- thêm integration
+1. thư mục unit
+- thêm file app.test.ts
+- thêm biến môi trường riêng cho việc test: thêm file .env.test
+
+2. Làm sao để chạy chung test với docker compose
