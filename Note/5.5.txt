@@ -1,0 +1,9 @@
+Bài 5.5: Building images
+
+* Câu lệnh docker-compose build
+docker-compose build
+
+* Quan tâm đến tham số:  --no-cache
+- sẽ có những tình huống không muốn cache thằng này lại bởi vì khi build luôn luôn muốn là thằng mới nhất
+=> sử dụng thêm  : --no-cache
+- khi đẩy lên production luôn không muốn lưu cache
