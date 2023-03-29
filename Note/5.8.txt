@@ -1,0 +1,11 @@
+Bài 5.8: Xem logs
+Cách mà xem đc logs của docker-compose
+
+* docker-compose logs
+* Xem các options
+docker-compose logs -h
+
+* docker-compose logs -f [service name] : docker-compose logs -f backend
+
+* Cách xem logs trên từng service cụ thể
+- xem logs cho backend/frondend/Db
