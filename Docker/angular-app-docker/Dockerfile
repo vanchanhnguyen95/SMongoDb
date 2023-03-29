@@ -3,6 +3,7 @@ RUN npm install -g @angular/cli@15.2.4
 RUN addgroup app && adduser -S -G app app
 USER app
 WORKDIR /app
+RUN mkdir data
 COPY package*.json .
 RUN npm install
 COPY . .

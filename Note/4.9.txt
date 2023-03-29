@@ -1,0 +1,50 @@
+Bài 4.9: Duy trì Data persistence trong Container sử dụng Volume
+
+* Tạo 1 volume
+- docker volume create [tên volume muốn tạo]
+- với từ inspect thì nó sẽ cho chúng ta  chi tiết về 1 volume
+docker volume inspect [tên volume muốn inspect]
+
+* Map volume với container
+docker run -dp 4202:4200 -v angular-app:/app/data lemonnguyen/angular-app:v3
+
+* Xem danh sách container
+ docker container ls
+ 
+* Chạy chế độ exec container
+docker exec -it [container ID] sh
+
+* Thêm 1 đoạn text vào 1 file
+$ echo hello lemon > data.txt (lần đầu chạy sẽ bị lỗi: sh: can't create data.txt: Permission denied)
+ 
+* Xem danh sách quyền
+ls -l
+
+* Sửa lỗi ko có quyền thì mình cần sửa lại file Dockerfile: thêm RUN mkdir data (tạo folder data)
+FROM node:18.15.0-alpine3.17
+RUN npm install -g @angular/cli@15.2.4
+RUN addgroup app && adduser -S -G app app
+USER app
+WORKDIR /app
+RUN mkdir data
+COPY package*.json .
+RUN npm install
+COPY . .
+ENV API_PATH =http://10.0.10.146:9200
+EXPOSE 4200
+
+# shell form
+# CMD npm start
+# Exec form: nhanh hơn, thuận tiện hơn
+# CMD [ "npm" , "start" ]
+# ENTRYPOINT [ "npm" , "start" ]
+ENTRYPOINT [ "ng" ,"serve" ,"--host", "0.0.0.0", "--disable-host-check" ]
+
+* buil lại image
+docker build -t lemonnguyen/angular-app:v3 .
+
+* Map volume với container
+docker run -dp 4202:4200 -v angular-app:/app/data lemonnguyen/angular-app:v3
+
+* Chạy chế độ exec container
+docker exec -it [container ID] sh
