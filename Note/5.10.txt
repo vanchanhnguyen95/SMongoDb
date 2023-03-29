@@ -1,0 +1,40 @@
+Bài 5.10: Migration DB
+Migration nó tạo sẵn data cho chúng ta
+
+* Các bước
+1. Mở code lên, vào thư mục backend
+2. Chạy lệnh: npm install
+3. Cần thay đổi trong file .env
+4. ở thư mục gốc của backend
+- Tạo fule migration.json
+5. Tạo 1 thư mục migrations bằng tay
+tại vì chúng ta cần có 1 file index.ts trong migrations
+
+6.cd vào thư mục backend
+( chạy câu lệnh để generate file): vào thư mục bin của node_modules
+- gõ lệnh vào node_modules:
+   ./node_modules/.bin/mongo-migrate -h
+- Vào thư mục ./node_modules/.bin/mongo-migrate
+ gõ: init -0h
+ gõ: new -h
+ gõ: new -name course
+ 
+7. Chạy lệnh
+npm run db:mgration
+
+8. Tạo docker-compose để nó migration cho db này
+
+8.1 Trong dockerfile của backend
+- trả về lại đúng [npm start] ko sài [[ "npm" , "run", "server:dev" ]] nữa, dev chỉ sài ở ngoài
+vì sử dụng container debug sẽ hơi chậm
+
+8.2 Ở file package.json: suear lại các dòng scripts
+
+9. File docker-compose.yml
+** Một số key quan trọng: depends_on, environment
+- depends_on này mình muốn là nó sẽ chạy phụ thuộc vào service db, nếu service db có vấn đề gì thì depends_on cũng rớt theo
+
+- environment: sửa lại DB_CONNECTION_STRING, thêm DB_NAME . Phải đảm bảo 2 giá trị : DB_CONNECTION_STRING, DB_NAME phải map với file .env
+
+10. Trước khi chạy docker-compose thì cd vào thư mục backend rồi chạy npm start xem có vấn đề gì không, Nếu chạy được thì chắc chắn docker-compose chạy được
+
