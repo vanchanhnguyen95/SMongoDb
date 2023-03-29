@@ -1,0 +1,3 @@
+Bài 5.9: Publish các thay đổi lên container
+Muốn map các volumes trong service app
+Có 1 library theo dõi các thay đổi

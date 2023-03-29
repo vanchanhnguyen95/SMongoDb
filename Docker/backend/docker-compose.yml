@@ -1,0 +1,21 @@
+services:
+  db:
+    image: mongo:4.0-xenial
+    ports:
+      - 27017:27017
+    volumes:
+      - tedu-course:/data/db
+  backend:
+    build: ./backend
+    ports:
+      - 3000:3000
+    environment:
+      DB_CONNECTION_STRING : mongo://db/tedu-course
+    volumes:
+      - ./backend:/app
+  frontend:
+    build: ./frontend
+    ports:
+      - 4200:4200
+volumes:
+  tedu-course:
