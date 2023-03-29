@@ -1,0 +1,30 @@
+Bài 5.4: Tạo mới một compose file
+* tạo file docker-compose.yml
+* cần nhớ các lệnh trong file
+chỉ định version docker-compose sử dụng
+
+
+* Nội dung file docker-compose.yml
+version: '3.8'
+
+services:
+  db:
+    image: mongo:4.0-xenial
+    ports:
+      - 27017:27017
+    volumes:
+      - tedu-courses:/data/db
+  backend:
+    build: ./backend
+    ports:
+      - 3000:3000
+    environment:
+      DB_CONNECTION_STRING : mongodb://db/tedu-course
+  frontend:
+    build: ./frontend
+    ports:
+      - 4200:4200
+volumes:
+  tedu-courses:
+
+
