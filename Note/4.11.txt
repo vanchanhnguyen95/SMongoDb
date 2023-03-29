@@ -1,0 +1,11 @@
+Bài 4.11: Chia sẻ mã nguồn với container
+
+Đối với môi trường production thì cứ mỗi lần thay đổi thì cần push 1 container mới
+
+- Nếu chỉ thay đổi 1 đoạn text thì sẽ tự động đổi luôn
+(docker run -dp 4203:4200 -v angular-app:/app serene_haibt)
+docker run -dp 4203:4200 -v $(pwd):/app serene_haibt
+docker run -dp 4203:4200 -v $(pwd):/app lemonnguyen/angular-app:v3
+lemonnguyen/angular-app:v3
+
+docker run -dp 4202:4200 -v angular-app:/app lemonnguyen/angular-app:v3
