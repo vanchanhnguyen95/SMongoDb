@@ -1,0 +1,4 @@
+Bài 5.1: Docker compose
+- Là công cụ để mà chúng ta có thể định nghĩa và chạy cùng 1 lúc nhiều contaienr trong 1 ứng dụng
+Với docker compose thì mình có thể sử dụng YAML file để mà cấu hình các service application của mình.
+- Làm sao với chỉ 1 câu lệnh có thể chạy 3 dịch vụ cùng 1 lúc: 1 contaienr chạy api, 1 contaienr chạy frond end, ...
