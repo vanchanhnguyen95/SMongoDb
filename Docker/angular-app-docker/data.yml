@@ -1,0 +1,34 @@
+--- # Shopping List in Block Format
+- milk
+- eggs
+- juice
+
+---- # Shopping List in Inline Format
+[milk, eggs, juice]
+
+integer: 25
+string: "25"
+float: 25.0
+boolean: Yes
+
+content: |
+Docker là 1 lên tảng sử dụng
+==> Là 1 ngôn ngữ biểu diễn dữ liệu
+
+content: >
+Docker là 1 lên tảng sử dụng
+==> Là 1 ngôn ngữ biểu diễn dữ liệu
+
+
+--- # present json format to yml
+description: Làm chủ Docker
+price: 200000
+code: CD4200
+title: Lập trình
+content: <p>Nội dung </p>
+tags:
+  - software
+  - devOps
+author: 
+  firstName: Chanh
+  lasName: Nguyen

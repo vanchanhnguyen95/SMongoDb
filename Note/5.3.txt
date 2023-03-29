@@ -1,0 +1,8 @@
+Bài 5.3: JSON và YAML
+
+* JSON
+thường dùng để cấu hình cho third party
+
+* YAML
+==> Là 1 ngôn ngữ biểu diễn dữ liệu
+1 file yaml thông thường để bắt đầu là --- #
