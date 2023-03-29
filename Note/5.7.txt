@@ -1,0 +1,5 @@
+Bài 5.7: Tìm hiểu về Docker Network
+ docker network
+ 
+- router giúp cho chúng ta giao tiếp giữa máy tính nội bộ và máy tính bên ngoài; giúp tăng tính bảo mật
+- Mỗi container sẽ có một ip khác nhau
