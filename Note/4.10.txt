@@ -1,0 +1,9 @@
+Bài 4.10: Sao chép file từ host sang Containers
+
+* Copy file từ container lên host
+docker cp [container ID]:đường dẫn đến file  đường dẫn muốn copy
+docker cp 1cc:/app/log.txt .
+
+* Copy file từ host lên container
+docker cp [file] [đường dẫn đến nơi muốn copy]
+ docker cp host-log.txt 1cc:/app
