@@ -1,0 +1,25 @@
+Bài 5.6: Start and stop application
+* Giải quyết lỗi không có quyền
+- Đem thư mục dist cho vào file .dockerignore
+ thư mục dist chỉ có quyền read, bị chặn quyền write nên nó ko ghi đè được
+- Vấn đề project này được viết bằng tyscript
+
+- Trường hợp ko dùng dockerignore thì ta sử dụng câu lệnh gán quyền (đang nói về project backend)
+RUN chmod -R 777 /app
+
+
+* Ôn câu lệnh clearn hết các container, image
+
+* Câu lệnh: docker-compose up --build -d
+
+* Muốn sẽ build trước, và chạy ở chế độ detect
+docker-compose up --build -d
+
+* Xem danh sách các container: docker ps
+
+* xem log: docker logs -f [ID]
+
+* Xem nhưng container nào đang liên quan đến compose đang chạy thôi
+
+* stop application
+docker-compose down
