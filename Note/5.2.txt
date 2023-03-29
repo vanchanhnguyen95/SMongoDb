@@ -1,0 +1,18 @@
+Bài 5.2: Giới thiệu ứng dụng web Full stack
+
+Trick để có thể remove toàn bộ 1 cách nhanh chóng và hiệu quả nhất
+
+* Câu lệnh chỉ hiển danh sách ID của image
+docker image ls -q
+
+* Câu lệnh chỉ hiển danh sách ID của container
+docker container ls -q
+
+* Câu lệnh remove tất cả những image mà không có container nào đang gắn cho nó
+docker image rm $(docker image ls -q)
+
+* Câu lệnh remove tất cả những container mà đã stop 
+docker container rm $(docker container ls -q)
+
+* Câu lệnh remove tất cả container dù stop hay ko 
+docker container rm -f $(docker container ls -q)
