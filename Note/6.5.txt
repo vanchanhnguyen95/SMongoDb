@@ -1,0 +1,4 @@
+Bài 6.5: Connecting the host
+Kết nối tới Host
+docker-machine ls : List all machines
+docker-machine ssh {app name}: Log into or run a command on a machine with SSH
