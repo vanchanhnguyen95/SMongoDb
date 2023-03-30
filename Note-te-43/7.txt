@@ -1,0 +1,6 @@
+Bài 7: Tìm hiểu về MongoDB và tư duy thiết kế NoSQL
+MongoDB
+Sử dụng chú ý validate
+Khi ghi dữ liệu nó không ghi vào Db mà ghi vào ổ cứng trước nên tốc độ rất nhanh
+Nhanh hơn khoảng 100 lần so với Db truyền thống
+Phải theo tư duy emm
