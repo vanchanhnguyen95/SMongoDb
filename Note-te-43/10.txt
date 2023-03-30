@@ -1,0 +1,55 @@
+Bài 10: Cài đặt môi trường phát triển
+
+*** Cài đặt dotnet 5 sdk và runtime-5
+** SDK
+sudo apt-get update && \
+  sudo apt-get install -y dotnet-sdk-5.0
+** Runtime 
+  sudo apt-get update && \
+  sudo apt-get install -y aspnetcore-runtime-5.0
+  
+  sudo cp -a /mnt/d/publish/geodemov2/* /var/www/geodemov2
+  
+  sudo chown -R user /mnt/c/Users/myUser/Documents/myFolder/proyectFolder
+  
+  sudo chown -R user /home/chanhnguyen
+** Link Cài dotnet tool
+https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install 
+
+** Link add quyền để có thể edit file trên wsl
+https://stackoverflow.com/questions/66496890/vs-code-nopermissions-filesystemerror-error-eacces-permission-denied
+
+** Cài docker desktop
+
+** Cài visual studio code
+- Cài các extension để code .net
++ .NET Core Add Reference : Adrian Wilczyński
+để chuyển add Reference bằng giao diện, không cần phải gõ lệnh
++ .NET Core Test Explorer : Jun Han
+để xem danh sách unit test
++ .NET Core Tools : Jun Han
+để build run bằng giao diện
++ .NET Core User Secrets
+để tạo các key cho ứng dụng của chúng ta overwrite cái appsetting, và nó chỉ có tác dụng trên máy chúng ta thôi
++ Auto Import : steoates
+ tự động import package
++ Auto-Using for C#
++ Bracket Pair Color DLW
+tự đánh dầu bằng mở ngoặc, đóng ngoặc
++ C#
++ C# extension
++ Code Spell Checker:
+check code tiếng Anh đúng chính tả không
++ vscode icons
++ git
+
+https://code.visualstudio.com/docs/remote/wsl
+https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-vscode
+
+
+
+* Kiểm tra có cài dotnet chưa
+dotnet
+* Kiểm tra xem trên máy hiện tại đã cài những dotnet sdk gì rồi
+dotnet --list-sdks
+
