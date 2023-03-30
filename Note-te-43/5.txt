@@ -1,0 +1,59 @@
+Bài 5: Chiến lược Domain Driven Design
+Strategic Domain Driven Design
+
+*** Những hiểu biết tổng quan về Domain Driven Design:
+- Là 1 tư duy băt đầu từ cuốn sách Tackling Complexity in the Heart of Software do Eric Evans đưa ra
+*** What is domain driven design? domain driven design là gì?
+domain: hướng nghiệp vụ
+- Focus on the core domain and domain logic.
+phương pháp này Focus vào core domain and domain logic. "Core domain and domain logic" có nghĩa là nghiệp vụ chính và logic chính của nghiệp vụ đấy thay vì ngày xưa ta tập trung vào dữ liệu, phân tích thiết kế database
+- Base complex designs on models of the domain.
+Nó base trên các thiết kế phức tạp của models
+- Constantly collaborate with domain experts, in order to improve the application model and resolve any emerging domain-related issues
+Trong mỗi domain đều có 1 người, 1 nhóm người. Làm việc cùng domain experts
+
+*** Advantages of Domain-Driven Design Ưu điểm của Domain-Driven Design
+- Eases Communication: Dễ dàng giao tiếp
+Vì khi làm việc với nhiều team thì nếu team dev làm về công nghệ nhưng phải phục vụ nghiệp vụ ấy, Team BA viết tài liệu cũng phải bám theo nghiệp vụ ==> nên tất cả đều hiểu chung 1 nghiệp vụ
+- Improves Flexibility: tăng sự linh hoạt
+vì domain chính nó đã linh hoạt rồi, nên ta base trên domain ấy sẽ linh hoạt theo
+- Emphasizes Domain Over Interface
+Chú trọng vào domain hơn là giao diện. Thiết kế giao diện, chức năng theo nghiệp vụ
+
+*** Concepts: các khái niệm cần phải biết khi làm việc với DDD
+Domain
+Subdomains
+The Ubiquitous Language
+Bounded Context
+Relationships Between Contexts
+Context Map
+
+*** Building Blocks: khi implement cũng cần biết những Building Blocks
+
+*** Domain
+- The common dictionary definition of domain is: “A sphere of knowledge or activity.”
+Nó là 1 vùng nghiệp vụ
+- Drilling down a bit from that, domain in the realm of software engineering commonly refers to the subject area on which the application is intended to apply.
+Domain trong software engineering giống như chủ đề chúng ta cần giải quyết, apply
+=> Domain là 1 nghiệp vụ đặc thù
+
+*** Subdomains
+Subdomains trực thuộc domain to
+- The domain concept is very broad and abstract.
+khái niệm domain thì nó rộng và trừu tượng => sinh ra subdomains để giúp cụ thể, chi tiết hơn cho dễ hiểu
+- To make it more concrete and tangible, it makes sense to split it up into smaller parts called subdomains.
+Giúp ta dễ dàng implement hơn
+
+- All subdomains can be divided into three categories:
+subdomains trực thuộc domain to, trong domain có nhiều nghiệp vụ con
+subdomains có thể chia nhiều danh mục khác nhau như:
+ + Core domains : nghiệp vụ liên quan đến core
+ + Supporting subdomains: nghiệp vụ liên quan đến báo cáo
+ + Generic subdomains
+ 
+*** Ubiquitous Language : Ngôn ngữ duy nhất thống nhất
+
+
+
+
+
