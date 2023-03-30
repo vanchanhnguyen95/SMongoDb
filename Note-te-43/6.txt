@@ -1,0 +1,62 @@
+Bài 6: Chiến thuật Domain Driven Design
+*** Value object
+- là 1 object chứa giá trị thôi, nó không có entity, không cần định danh
+- value object được khởi tạo để chứa 1 phần tử
+- value object không thể sửa đổi, chỉ có thay thế
+An object that represents a descriptive aspect of the domain with no conceptual identity is called a Value Object. 
+Value Objects are instantiated to represent elements of the design that we care about only for what they are, not who or which they are. — Eric Evans
+- A value object is an object whose value is of importance.
+- Value objects should always be made immutable.
+- Value objects are not only containers of data - they can also contain business logic.
+Example:
+Money
+StreetAddress
+EmailAddress
+
+*** Entity
+- Many objects are not fundamentally defined by their attributes, but rather by a thread of continuity and identity. – Eric
+- An entity is an object whose identity is of importance. 
+- To be able to determine the identity of an entity, every entity has a unique ID that is assigned when the entity is created and remains unchanged throughout the lifespan of the entity.
+- Example:
+ Customer
+ Contract
+- Nó khác với object là nó được định nghĩa ra và cần được định danh
+
+*** Entity or Value Object?
+Make decision by domain specific
+
+***Aggregates
+
+*** Domain Events
+Chứa các thông tin để các bên có thể hiểu được
+
+*** Distributing Domain Events
+Các Domain được phân phối qua mạng gọi là Domain Events, thông qua Message Queue
+hoặc Event Log
+- Distribution Through a Message Queue
+- Distribution Through an Event Log
+
+*** Repositories
+Là thành phần giúp chúng ta lưu trữ, thao tác với dữ liệu
+- Là cầu nối bên trong với nghiệp vụ bên ngoài
+
+** Domain Services
+Cho phép chúng ta quản lý hoặc thực hiện riêng từng nghiệp vụ
+- Domain Services chỉ đơn thuần chứa nghiệp vụ, không làm gì cả, application service thì liên quan nhiều hết.
+application service liên quan đến điều hướng
+
+** Factories
+- được sử dụng đê tạo ra Aggregates, nó là thằng đóng gói Aggregates
+
+** Modules
+1 ứng dụng to chia ra thành nhiều module nhỏ
+
+
+
+
+
+
+
+
+
+
