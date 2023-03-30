@@ -1,0 +1,5 @@
+Bài 6.2: VPS
+Digital Ocean
+Google Cloud Platform (GCP)
+Microsoft Azure
+Amazon Web Services (AWS)
