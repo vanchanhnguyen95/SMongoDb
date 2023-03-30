@@ -1,0 +1,12 @@
+Bài 6.1: Giới thiệu
+Tìm hiểu cách deploy ứng dụng của chúng ta với docker
+- Deploy application and host to the cloud
+- Các options deployment
+để chúng ta lựa chọn cho việc deployment: docker-swam,...
+- Khởi tạo 1 VPS (Virtual Private Server)
+- Sử dụng Docker Machine
+để chúng ta kiểm sóat cái docker engine của 1 máy ảo, thậm chí có thể cho chúng ta có thể update, restart luôn
++ Docker Machine: cho phép chúng ta kiểm soát docker engine
+- Optimized production images
+
+- Deploying the application
