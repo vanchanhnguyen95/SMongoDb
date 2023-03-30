@@ -1,0 +1,14 @@
+Bài 6.4: Provisioning a Host
+Dùng kỹ thuật ngắt dòng để gõ lệnh bớt dài, dùng dấu   \ trong máy Mac
+
+*** Cấp phép (provisioning) to the Host
+docker-machine create \         
+--driver digitalocean \
+--digitalocean-image ubuntu-18-04-x64 \
+--digitalocean-access-token {token}\
+--engine-install-url "https://releases.rancher.com/install-docker/19.03.9.sh" \
+{app name}
+
+Problem: https://www.digitalocean.com/community/tutorials/how-to-provision-and-manage-remote-docker-hosts-with-docker-machine-on-ubuntu-16-04
+
+
