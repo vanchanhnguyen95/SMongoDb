@@ -1,0 +1,38 @@
+Bài 11: Tìm hiểu Docker Architecture và setup hạ tầng sử dụng YAML
+- Khi ứng dụng của chúng ta build cần có 1 image, tư duy của nó là: nó sẽ dùng 1 docker file
+- dockerfile: gồm các lệnh chỉ dẫn để tạo ra 1 image cần những thông tin gì, input gì
+- docker image: là 1 bản chụp chứa toàn bộ source,mã nguồn, môi trường, cấu hình của hệ thống ứng dụng.
+Khi run docker image sẽ tạo ra được container.
+- container: là 1 app chạy thật luôn.
+- image chúng ta build ra rồi thì chúng ta có thể run bất cứ nơi đâu: trên widow, trên linux
+- image: đc cấu tạo trên nhiều layer, nó đóng gói lại toàn bộ môi trường, cấu hình, nền tảng, code của app,
+có thể đóng gói ubuntu xuống dưới, không bị phụ thuộc môi trường bên ngoài
+
+- Người dùng người ta start host, dùng docker UI để tương tác với Docker Deamon. Trong Docker Deamon chúng ta có các container 1, container 2,... và nó có thể tạo ra các network để container nói chuyện với nhau thông qua network đấy, nếu chúng ta ko tạo network thì nó sẽ tạo ra mặc định. Và nó cũng có cơ chế để persiton việc lưu trữ khi các container này bị xóa hoặc bị stop, các dữ liệu trên mongoDb hay sqlserver sẽ mất thì chúng ta sẽ tạo ra các volume ra cho nó. Các volume sẽ map và các host, các ổ dữ liệu thật. Khi chúng ta tạo ra thì nó sẽ được lưu đâu đó trên ổ thật, cho nên khi chúng ta start lại container chúng ta vẫn có dữ liệu được map từ volume này.
+- Trong việc run thì chúng ta cần 1 docker image, đầu vào đương nhiên cần có docker image, docker image lấy trên 1 trang hub và nó public, hoặc registry 1 trang riêng. Nếu chúng ta tải về thì Docker Deamon sẽ quản lý luôn các image đấy, còn nếu ko tìm thấy thfi cần registry 1 trang bên ngoài
+- Container này sẽ có nhiệm vụ là public 1 cổng ra bên ngoài, nó lắng nghe 1 cổng và host ip của host bên ngoài nó sẽ bind với 1 cổng bên trong. Host ip bên ngoài sẽ bind với cổng của container
+
+* Lệnh Docker run
+- chạy từng service 1 chúng ta khởi tạo
+
+* Lệnh Docker compose
+- khi chạy chúng ta cần khởi tạo 1 file .yaml hoặc yml. Chỉ cần 1 file này thôi nó bung ra hết tất cả mọi thứ
+
+
+* link tải microsoft 
+https://hub.docker.com/_/microsoft-mssql-server
+Chạy bản 2017
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Admin@123$" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest
+
+* password sql server: Admin@123$
+
+* link tải mongoDb
+https://hub.docker.com/_/mongo
+
+mongodb://localhost:27017
+
+* Cài thêm docker-compose extensie
+Docker Compose
+
+Thư mục chạy wsl: chạy docker-compose
+chanhnguyen@NC-CHANHNV:/mnt/c/Users/chanhnv/AppData/Local/Programs/Microsoft VS Code$ 
