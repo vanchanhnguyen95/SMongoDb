@@ -1,0 +1,47 @@
+Bài 9: Giới thiệu Clean Architecture
+Clean Architecture
+** Nó là 1 best practice giúp chúng ta xây dựng dự án clean bằng cách là chia ra layer cụ thể, nó liên hệ chặt chẽ với DDD
+*** Các tầng
+<-> Presentation <->
+- Application
+- Domain 
+<->Infrastructure <->
+
+- Presentation:
+là phần liên quan đến hiển thị dữ liệu, nhận request từ người dùng hiển thị dữ liệu ra
+- Tầng ở giữa chúng ta có: Application, Domain
++ Domain: phân tích model, nghiệp vụ của chúng ta; chứa logic của toàn bộ ứng dụng enterprise
++ Application: chứa nghiệp vụ của ứng dụng đấy
+ ví dụ chúng ta có domain tài chính-ngân hàng thì chúng ta có nguyên 1 model frontend,
+ nhưng chúng ta xây dựng ứng dụng quản lý nợ xấu thôi
++ Application thì làm nhiệm vụ tương tác với Domain nhưng mà nó chứa logic của ứng dụng đấy. Domain là chung cho toàn bộ doanh nghiệp, còn Application là ứng dụng cho doanh nghiệp thôi: nó chứa các thành phần thao tác với domain và trả về cho Presentation cũng như là giao tiếp với tầng bên dưới là tầng Infrastructure.
++ Tầng Application quy định logic như thế này, lưu vào hay như thế nào thôi còn lưu vào đâu thì Infrastructure nó sẽ quy định: có thể lưu vào Db, vào file, 1 cache nào đấy, do Infrastructure quy định.
++ Phần Domain và Application gọi là Core
+
+*** Advantages
+- Independent of frameworks it does not require the existence of some tool or framework
+- Testable easy to test – Core has no dependencies on anything external, so writing automated tests is much easier
+- Independent of UI logic is kept out of the UI so it is easy to change to another technology – right now you might be using Angular, soon Vue, eventually Blazor!
+- Independent of the database data-access concerns are cleanly separated so moving from SQL Server to cosmosDB or otherwise is trivial
+- Independent of anything external in fact, Core is completely isolated from the outside world – the difference between a system that will last 3 years, and one that will last 20 years
+
+- dễ mở rộng
+- dễ bảo trì
+- dễ test
+- dễ chuyển UI
+- Độc lập với các thành phần bên ngoài
+
+*** Technologies Công nghệ
+- .NET 5
+- Entity Framework Core 5
+- Blazor
+- MediatR để sử dụng CQRS
+- AutoMapper
+- FluentValidation: để validate API
+- XUnit để unit text
+- Docker để chạy mongoDB và sql server trên máy của chúng ta (Dùng docker desktop)
+- Frontend dùng Blazor: Admin thì dùng blazor webassembly còn portal dùng blazor server
+
+
+
+
