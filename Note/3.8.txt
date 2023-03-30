@@ -13,11 +13,11 @@ Vẫn đang bị vấn đề vẫn chạy lại câu lệnh: npm install
 
 -- Chạy lại 
  docker run -it angular-app sh
--- Làm sao để cho in ra hết câu lệnh ra
+-- Làm sao để in ra hết câu lệnh
 printenv
 
--- Muốn API_PATH thì như nào
+-- Muốn in ra API_PATH thì như nào
 printenv printenv
 
-- Không sử dụng printenv mà dùng echo
+- Nếu không sử dụng printenv mà dùng echo
 echo $API_PATH
