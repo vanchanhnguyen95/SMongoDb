@@ -1,0 +1,74 @@
+Bài 8: Xác định use case và luồng dữ liệu
+*** User: là thí sinh thi
+- Authenticate
+- View Exam
+- Take Exam
+- View history
+*** Admin
+- Authenticate
+- Manage question bank
+
+Xác định được Actor rất quan trọng
+
+*** Bẻ tiếp Domain chính: Domain business
+Gồm các domain sau, là các collection: 1 collection có thể gồm nhiều bảng hơn
+** Category: chỉ quản lý về danh mục
+- Name
+- UrlPath
+
+** Question
+- Question
++ content: string Nội dung Câu hỏi là gì
++ questionType: int loại câu hỏi (chọn 1 hay nhiều)
++ level: int (khó hay dễ)
++ categoryId: string (khi update tên của category thì update tất cả bên liên quan)
++ answer: List answer
++ explain: string (giải thích câu hỏi)
++ dateCreate: dateTime
++ ownerUser: string
+
+Question là con của Danh mục
+ID của Question là root
+- answer
++ content
++ isCorrect
+
+- Question và answer chính là join trong lúc write chứ k phải lúc read
+
+** User
++ id: string
++ firstName: string
++ lastName: string
++ getFullName(): string
+
+
+** Exam result
+- Exam result
++ examId: string (exam nào)
++ userId: string (user nào làm)
++ examQuestionReviews: list exam details (danh sách câu hỏi đã trả lời)
++ examDate: DateTime (ngày bắt đầu làm)
++ examFinishDate: DateTime (ngày kết thúc)
++ passed: bool (có pass hay không)
++ finished: bool (đã finished chưa)
+
+- ExamresultDetail
++ question: question object
++ selectedAnswers: list answers (danh sách câu trả lời)
++ isCorrect: bool (có đúng hay không)
+
+** Exam
++ name: string (tên đề thi)
++ shortDesc: string (mô tả ngắn)
++ content: string (nội dung)
++ numberOfQuestions: int (số câu hỏi của để thi)
++ duration: TimeSpan (tổng đề thi cho phép bao nhiêu phút)
++ questions: List questions (chọn câu hỏi đẩy luôn đề thi vào đây)
++ level: int (khó hay dễ)
++ dateCreated: DateTime (ngày tạo)
++ ownerUserId: string (người tạo)
++ numberOfQuestionCorrectForPass: int (số câu hỏi đúng để pass)
++ isTimeRestricted: bool (có giới hạn thời gian không)
+
+
+Mỗi lần sửa phải đảm bảo toàn vẹn giữa answer và question
