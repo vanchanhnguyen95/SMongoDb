@@ -1,0 +1,17 @@
+Bài 6.9: Fix issue in deployment progress
+làm sao để truy cập vào địa chỉ ip chúng ta vừa deploy trên digitalOcean
+- Fix các lỗi khi deploy: lỗi frontend
+- Lỗi hay gặp ở việc các file ko có quyền
+
+* Tóm lại để build đc production thì:
+- Đầu tiên phải build ra được file docker-compose cho phiên bản production: docker-compose.prod.yml
++ Trong file docker-compose.prod.yml: đĩnh nghĩa hết các bước
+- Trong terminal: chạy lệnh docker-machine create
+docker-machine ls
+- Chạy được lệnh: docker-machine ls  là đã run đc app rồi
+- Sau khi run đc app rồi: lấy biến môi trường của nó ra
+ docker-machine env tedu-app
+- Sau đó chạy câu lệnh này để active docker-machine ở trong cửa sổ hiện tại lên đồng thời nó export tất cả file lên
+eval $(docker-machine env tedu-docker)
+- Sau khi xong thì chạy lệnh: docker-compose -f docker-compose.prod.yml up -d -build   
+để build nó
