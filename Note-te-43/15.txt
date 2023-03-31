@@ -1,0 +1,34 @@
+Bài 15: Cấu hình Identity Server
+* cài thêm extension để add package
+NuGet Gallery : giúp quản lý package rất dễ dàng
+Khi cài rồi thì chuột phải chọn  Open NuGet Gallery thì nó sẽ show cho chúng ta như visual studio
+
+* cài identityserver4 
+IdentityServer4 vào project Identity.API
+IdentityServer4.EntityFramework vào project Identity.API
+IdentityServer4.Storage vào project Identity.API: chuyên quản lý việc lưu trữ dữ liệu 
+
+* Microsoft.EntityFrameworkCore
+ Microsoft.EntityFrameworkCore vào Identity.API
+ Microsoft.EntityFrameworkCore.SqlServer vào Identity.API
+ Microsoft.AspNetCore.Identity.EntityFrameworkCore by Micros  vào Identity.API
+ Microsoft.EntityFrameworkCore.Tools  vào Identity.API
+
+* Polly
+Nó tự động ngắn request nếu lâu quá,
+giúp ứng dụng chống lỗi tốt
+
+* Serilog
+
+* Serilog.AspNetCore
+
+* Serilog.Sinks.Http
+
+* Cài thêm .NET Core User Secrets
+Chuột phải chọn Manage User secret để bảo mật: sẽ sinh ra 1 file secret.json ghi đè connectionstring của các bạn
+=> sẽ copy nguyên appsetting từ ngoài vào
+"Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=SpeedWebAPIHL2;Persist Security Info=True;User ID=sa;Password=1"
+=> cái này ko bị đẩy vào source code, sẽ ko bị lộ connections
+* Tạo folder
+Dùng code-first : để quản lý database dễ hơn vì nó đều phản ánh trong code nó ko liên quan đến những thao tác thừa bằng tay thì migrate các class đỡ bị lệch
+
