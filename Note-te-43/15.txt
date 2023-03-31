@@ -27,7 +27,7 @@ giúp ứng dụng chống lỗi tốt
 * Cài thêm .NET Core User Secrets
 Chuột phải chọn Manage User secret để bảo mật: sẽ sinh ra 1 file secret.json ghi đè connectionstring của các bạn
 => sẽ copy nguyên appsetting từ ngoài vào
-"Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=SpeedWebAPIHL2;Persist Security Info=True;User ID=sa;Password=1"
+"Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=teduexam2;Persist Security Info=True;User ID=sa;Password=1"
 => cái này ko bị đẩy vào source code, sẽ ko bị lộ connections
 * Tạo folder
 Dùng code-first : để quản lý database dễ hơn vì nó đều phản ánh trong code nó ko liên quan đến những thao tác thừa bằng tay thì migrate các class đỡ bị lệch

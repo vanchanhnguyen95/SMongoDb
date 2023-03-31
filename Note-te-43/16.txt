@@ -1,0 +1,115 @@
+Bài 16: Cấu hình Identtiy Server và Seeding Data
+
+1. What Is OAuth?
+Cho phép chứng thực tất cả qua 1 cổng
+2. Why OAuth?
+- Giúp chúng ta tránh được việc lúc nào cũng làm form username, password
+3. OAuth Central Components Các thành phần
+- Scopes and Consent
+- Actors
+- Clients
+- Tokens
+- Authorization Server : chính là identity server 
+- Flows
+4. OAuth Scopes
+- thỏa thuận người dùng sẽ được cấp những quyền gì, đc làm gì trên identity server
+
+5. OAuth Actors
+- Resource Owner: owns the data in the resource server. For example, I’m the Resource Owner of my Facebook profile.
+Resource Owner: chính là chúng ta, chúng ta là người quản lý resource đấy
+
+- Resource Server: The API which stores data the application wants to access
+ là identity server, giống examinision của chúng ta
+
+- Client: the application that wants to access your data
+Chính là ứng dụng của chúng ta, của khách hàng cho phép được đăng nhập vào trong Resource Server này
+
+- Authorization Server: The main engine of OAuth
+
+6. OAuth Tokens
+JWT Token chính là 1 loại thư viện để tạo OAuth Tokens
+- Access tokens are the token the client uses to access the Resource Server (API).
+được sử dụng để truy cập, sử dụng Resource Server
+
+- Short-lived: hours and minutes, not days and month
+thường sử dụng Short-lived: để thời gian tồn tại ngắn thôi
+
+- The other token is the refresh token: longer-lived; days, months, years
+Có refresh token mới để dài. Đây là cái token giúp chúng ta bảo vệ được và lấy được token mới khi token này hết hạn
+
+- Refresh tokens can be revoked.
+
+7. Authorization Grant
+- Authorization Code: used with server-side Applications
+- Implicit: used with Mobile Apps or Web Applications (applications that run on the user’s device)
+- Resource Owner Password Credentials: used with trusted Applications, such as those owned by the service itself
+- Client Credentials: used with Applications API access
+
+8. Grant Type: Authorization Code
+
+
+*********************************
+1. Khi build hay bị lỗi ApplicationDbContext: có thể do lúc tạo nhầm class đấy
+Có cách copy nội dung tạo lại
+dotnet clean
+dotnet restore
+dotnet build
+
+2. Vào Configuration tạo file Config.cs
+Giúp define các dữ liệu ban đầu cho ứng dụng identity
+
+3. Sau khi config xong thì chúng ta bắt đầu tạo ra các Dbcontext để chúng ta seeding dữ liệu vào
+- Tạo 1 class AppSettings để load hết tất cả AppSettings
+- Trong thư mục Database Tạo các dbContext
+- Add vào file startup:  services.Configure<AppSettings>(Configuration);
+
+4. Seeding
+- Chạy lệnh seeding
+- Để chạy lệnh seeding ta tạo thư mục Factories
+- Có thằng context nào thì ta phải tạo 1 config, 1 factory đó
+
+5. Viết migration extension để tạo ra
+- Tạo ra 1 host extension => Tạo folder Extension
+- Sửa file Program.cs
+
+6. Chạy Migrate
+Chúng ta có nhiều Dbcontext nên chạy phải chỉ định
+- Vào folder src/Identity/Identtiy.API, chạy bash
+- Chạy từng context: phải chỉ ra từng loại context nào
+*** Chú ý lỗi kiểm tra xem dotnet tool cài chưa:
+ https://stackoverflow.com/questions/57066856/command-dotnet-ef-not-found
+ To install the dotnet-ef tool, run the following command:
+
+.NET 7
+
+dotnet tool install --global dotnet-ef
+.NET 6
+
+dotnet tool install --global dotnet-ef --version 6.*
+.NET 5
+
+dotnet tool install --global dotnet-ef --version 5.*
+.NET Core 3
+
+dotnet tool install --global dotnet-ef --version 3.*
+
+*******Chạy lệnh sau:
++ dotnet ef migrations add Initial --context ApplicationDbContext --output-dir Migrations
++ dotnet ef migrations add Initial --context ApplicationDbContext --output-dir Migrations
+
+In EF Core 5.0, you are free to move Migration files and changes their namespace manually. New migrations are created as siblings of the last migration. Alternatively, you can specify the directory at generation time as follows:
+
+.Net core CLI
+
+dotnet ef migrations add InitialCreate --output-dir Migrations
+
+"Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=teduexam2;Persist Security Info=True;User ID=sa;Password=1"
+
+dotnet ef migrations add Initial --context ApplicationDbContext
+dotnet ef migrations add Initial --context ConfigurationDbContext
+dotnet ef migrations add Initial --context PersistedGrantDbContext
+
+7. Chạy
+Xong thì ở thư mục Identity/Identtiy.API
+Nhớ chú ý các đoạn kết nối: connectstring
+dotnet run
