@@ -1,0 +1,51 @@
+Bài 12: Tạo solution với Clean Architecture
+Cách kết nối git với visual studio code
+
+*** add quyền
+sudo chmod -R 777 .
+
+1. New 1 solution dotnet
+dotnet new sln
+2. Tạo ra các folder: src, tests
+3.Tạo các project đơn lẻ rồi mới add vào solution
+dotnet new webapi -o src/Identity.API
+dotnet new webapi -o src/Examination/Examination.API
+dotnet new classlib -o src/Examination/Examination.Application
+dotnet new classlib -o src/Examination/Examination.Domain
+dotnet new classlib -o src/Examination/Examination.Infrastructure
+
+dotnet new xunit -o tests/Examination/Examination.Infrastructure.IntegrationTests
+dotnet new xunit -o tests/Examination/Examination.Domain.UnitTests
+dotnet new xunit -o tests/Examination/Examination.API.IntegrationTests
+dotnet new xunit -o tests/Identity.API/Identity.API.IntegrationTests
+
+4. Add toàn bộ vào solution
+dotnet sln add src/Identity.API/Identity.API.csproj --solution-folder src
+dotnet sln add src/Examination/Examination.API/Examination.API.csproj --solution-folder src
+dotnet sln add src/Examination/Examination.API/Examination.API.csproj --solution-folder src/Examination
+dotnet sln add src/Examination/Examination.Application/Examination.Application.csproj --solution-folder src/Examination
+dotnet sln add src/Examination/Examination.Domain/Examination.Domain.csproj --solution-folder src/Examination
+dotnet sln add src/Examination/Examination.Infrastructure/Examination.Infrastructure.csproj --solution-folder src/Examination
+
+dotnet sln add tests/Identity.API/Identity.API.IntegrationTests/Identity.API.IntegrationTests.csproj --solution-folder tests/Identity.API
+
+dotnet sln add tests/Examination/Examination.Infrastructure.IntegrationTests/Examination.Infrastructure.IntegrationTests.csproj --solution-folder tests/Examination
+dotnet sln add tests/Examination/Examination.Domain.UnitTests/Examination.Domain.UnitTests.csproj --solution-folder tests/Examination
+dotnet sln add tests/Examination/Examination.Application.UnitTests/Examination.Application.UnitTests.csproj --solution-folder tests/Examination
+dotnet sln add tests/Examination/Examination.API.IntegrationTests/Examination.API.IntegrationTests.csproj --solution-folder tests/Examination
+
+5. dotnet build
+
+6. Thêm file .gitignore cho visual studio
+
+7. Câu lệnh commit
+git add *
+git status
+git add .gitignore
+git status
+git commit -m "Create solution structure"
+git push
+
+
+
+
