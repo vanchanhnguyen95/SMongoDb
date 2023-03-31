@@ -24,6 +24,8 @@ giúp ứng dụng chống lỗi tốt
 
 * Serilog.Sinks.Http
 
+* cài thêm .NET Core Add Reference
+
 * Cài thêm .NET Core User Secrets
 Chuột phải chọn Manage User secret để bảo mật: sẽ sinh ra 1 file secret.json ghi đè connectionstring của các bạn
 => sẽ copy nguyên appsetting từ ngoài vào

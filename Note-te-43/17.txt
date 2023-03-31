@@ -1,0 +1,44 @@
+Bài 17: Thiết kế domain Entity
+* domain Entity gồm 5 Aggregate, trong khóa này chúng ta có 5 Aggregate
+* Tất cả chỉ chứa trong Examination/Examination.Domain
+Chỉ chứa thông tin về domain đấy thôi, ko chứa entity hay tích hợp gì cả
+****.. Tạo thư mục AggregateModels
+
+****.. Tạo thư mục Events
+- Làm việc với domain Events, để chúng ta xuất ra các domain event
+- Dùng CQRS, CQRS làm việc thông qua với domain event
+
+****.. Tạo thư mục Exceptions
+- Tạo ra 1 class custom exception để chúng ta làm nhiệm vụ chứa những thông tin của exception của chúng ta mà không dùng mặc định.
+để viết Exceptions riêng
+
+****. Tạo thư mục SeedWork
+- Để chứa các thành phần dùng chung
+
+1. Đi vào Exceptions trước
+Tạo class ExamDomainException.cs 
+
+2. Events
+Tạo ExamStartDomainEvent.cs
+- Khi mà có người nào start 1 exam tức là có 1 người bắt đầu làm bài thì sẽ xuất ra event này
+- Dùng cơ chế CQRS để chúng ta raise command và tạo event
+
+3. AggregateModels
+CategoryAggregate, ExamAggregate, ExamResultAggregate, QuestionAggregate
+* Trong Aggregate này chúng ta có bản thiết kế rồi, mỗi thư mục sẽ có 1 Aggregate
+
+4. Thư mục SeedWork
+tạo các thông tin dùng chung và để abstract. Để abstract vì chúng ta không cho phép ai tạo instance trực tiếp từ entity này mà chúng ta chỉ được dùng thôi
+Thêm Bson để Id map với Db mông
+
+*** Add thêm các package:
+MediatR v9.0
+MongoDB.Bson v 2.12.4
+
+Làm việc với MongoDB ko cần migration
+
+
+*** Tách hẳn khu vực Dtos, có enum dùng chung
+dotnet new classlib -o src/BuildingBlocks/Examination.Dtos
+
+* .NET Core Add Reference
