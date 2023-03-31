@@ -1,0 +1,22 @@
+Bài 14: Tìm hiểu cấu trúc ứng dụng MVC và Entity Framework
+
+*** Framework ASP .Net core nó hỗ trợ mô hình MVC
+- MVC là 1 design pattern
+- Mô hình này có 3 thành phần: M, V, C. Trong đó controller là thành phần chính làm nhiệm vụ tiếp nhận request từ bên ngoài vào. Khi người dùng tương tác với View thì đương nhiên View sẽ nhận request nhưng mà không phải nhận qua tiếp nhận bởi vì nó là UI thôi, nó sẽ tiếp nhận nó gửi đến controller, tức là thông qua View để gửi đến controller. controller làm nhiệm vụ truy xuất cơ sở dữ liệu, tạo ra model, trả về cho view, view hiển thị lên và người dùng tương tác. Controller là thành phần chính.
+Model ngày xưa là trao đổi dữ liệu với server nhưng thực ra bây giờ nó có tầng service để nó chứa logic, nó tương tác bên ngoài. Model bây giờ chỉ làm nhiệm vụ chứa dữ liệu và truyền về View thôi. Model ở đây chỉ là DTO thôi
+
+*** Request Pipeline
+- Bất cứ 1 ứng dụng ASP .Net Core nào chúng ta đều có 1 Request Pipeline
+- Request Pipeline giống như 1 đường ống. Mỗi một thành phần giữa là Middware. Middware làm 1 số nhiệm vụ như lọc lỗi, nó sẽ tự lọc, lọc authentication, lọc static file, lọc cookie, lọc header, can thiệp vào request và response tùy theo nghiệp vụ. Trước khi nó chạy nó sẽ chạy vào request action controller.
+- Request đều đi qua 1 đường ống và nó trả về. Request Pipeline này nó làm nhiệm vụ là nó là 1 đường ống, request chạy qua nó, xử lý xong nó lại chạy qua response về user
+- Cái Pipeline này config ở đâu? Ở trong file start up, trong method config. Cái nào nhúng trước sẽ chạy trước, cái nào chúng sau sẽ chạy sau.
+
+*** Identity Server Flow
+Đầu tiên đăng nhập thì nó sẽ chuyển đến Identity Server. Đăng nhập thành công nó sẽ trả về token. Đương nhiên thằng Identity sẽ chứa thông tin client để validate cộng với đường dẫn để nó hook về sau khi thành công, Xong thì nó sẽ nhận được token từ identity server. Ứng dụng client này nó sẽ gửi kèm theo bear token đấy vào trong request mà gửi đến API, API khi nhận đc token đấy nó phải gọi lại identity server để check nếu đúng nó sẽ validate và nó trả về response => Đấy là luồng
+
+** Microservices
+Để thành Microservices cần có API Gateway
+
+** Entity Framework Architecture
+Là 1 provider để làm việc với các cơ sở dữ liệu,, ko chỉ với sql server mà cả mysql, postgre, mongo. Trên entity chỉ cần ta viết 1 câu lệnh linq to sql thì thằng provider sẽ dịch ra tương ứng trên các Db đấy và cái thằng entity framework ngoài biên dịch ra nó còn cơ chế mapping dữ liệu, cơ chế query, update, đảm bảo transaction, các thông tin data, command rồi nó có thể checking các entity.
+Trái tim của nó là database, thể hiện trong datacontext
