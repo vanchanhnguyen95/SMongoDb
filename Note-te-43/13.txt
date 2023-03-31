@@ -1,0 +1,8 @@
+Bài 13: Tạo Identity Server Project
+* Chia lại cấu trúc folder => gặp lỗi đường dẫn
+
+** Identity Server: giúp chúng ta xây dựng provider có sẵn:
+nó chứng thực, cấp quyền
+- dùng khi hệ thống sinh thái của doanh nghiệp, có nhiều ứng dụng và muốn chứng thực
+- nó cung cấp tocken service cho nhiều bên sử dụng
+
