@@ -1,0 +1,31 @@
+Bài 24: Tich hợp Health Check cho API
+*** Làm việc với thư viện Health Check
+- Giúp chúng ta quản lý các trạng thái của chúng ta và các thành phần liên quan
+- Trong ứng dụng của chúng ta muốn biết được khi nào 1 service chết hay sống, khi nào các thành phần liên quan.
+Ví dụ trong service Examination của chúng ta kết nối với mongoDb thì thành phần liên quan là mongoDb và chính bản thân nó là service Examination nó có sống hay không, mongoDb có sống hay không. Nếu mongoDb chết mà service này vẫn sống thì nó vẫn phải báo ra service sống, riêng những gì liên quan mongoDb phải chết. Ngoài ra còn liên kết đến Rabbit mq,external
+*** Sẽ tích hợp Health check cho: Identity server, Examination trong phạm vi bài này
+
+**** Tích hợp cho API Examination.API
+- Add AspNetCore.HealthChecks.MongoDb v 5.0.1
+- AspNetCore.HealthChecks.SqlServer v 5.0.3
+
+- AspNetCore.HealthChecks.UI.Client v 5.0.1 : tích hợp cho cả Identity.API
+- AspNetCore.HealthChecks.UI.InMemory.Storage Version="5.0.1"
+
+*** Add vào start up
+- Add các service
+- Add cả chính nó
+- Url: /hc: chúng ta bật luôn được UI của thằng service hiện tại
+- /liveness: chỉ ra được trạng thái của service hiện tại để cho các thằng khác có thể ping đến thằng này xem còn sống hay không
+- /hc-details: để cho các ngôn ngữ khác check, xem ở dạng json 
+
+*** Link check Examination API:
+- Api :  https://localhost:5002/swagger/index.html
+- hc : https://localhost:5002/hc
+- hc-ui: https://localhost:5002/hc-ui / https://localhost:5002/hc-ui#/healthchecks
+- liveness : https://localhost:5002/liveness
+
+*** Link check Identity API:
+
+
+
