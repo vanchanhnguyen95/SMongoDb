@@ -1,0 +1,33 @@
+Bài 18: Xây dựng tầng Infrastructure
+*****
+- Domain này là thằng quy định các danh sách domain của ứng dụng và repository, các phương thức mà nó sẽ khai báo.
+Còn cụ thể của nó khi chúng ta triển khai với truy cập đến cơ sở dữ liệu nào hay là đến file, đến email hay là đến các thành phần bên ngoài tích hợp vào hệ thống thì chúng ta đều làm qua infrastructure.
+=> Vậy thì tất cả nhưng cái repository ở trong thằng domain,  chúng ta chỉ khai báo thôi tức là ở mức độ abstraction (trừu tượng). Còn thằng infrastructure nó sẽ implement trực tiếp. Tại sao chúng là làm như này?? Vì thằng Domain và Application là thằng core (chúng ta đã học), thằng infrastructure là thằng nó depend các thành phần bên ngoài, như vậy chúng ta làm như này thì thằng Domain ko bị phụ thuộc bên ngoài, và sau này chúng ta có thay đổi chúng ta không dùng entity framework, chúng ta dùng dapper chúng ta thay đổi phần infrastructure, chúng ta dùng mongoDb thay đổi phần infrastructure tức là implement nó khác nhau nhưng cốt lõi vấn đề nghiệp vụ giống nhau
+
+*** Infrastructure có 2 phần
+1. Repository implementation
+2. Các phần seedwork: các class dùng chung cho toàn bộ agga
+* Dùng chung thì để trong seedwork
+*** Trong Examination.Infrastructure
+- Add <ProjectReference Include="..\Examination.Domain\Examination.Domain.csproj" />
+- Add package: MongoDB.Driver v 2.12.4
+- Add package: Pollyv 7.2.2 để có thể retry đc
+- Add package: Microsoft.Extensions.Logging.Abstractions 5.0.0
+- Add package:Microsoft.Extensions.Options v 5.0.0
+- IMediator dùng để làm việc với Event, CQRS
+** Giải thích hàm CommitTransactionAsync
+public async Task CommitTransactionAsync(T entity, CancellationToken cancellationToken = default)
+	{
+		await _clientSessionHandle.CommitTransactionAsync(cancellationToken);
+
+		var domainEvents = entity.DomainEvents.ToList();
+
+		entity.ClearDomainEvents();
+
+		foreach (var domainEvent in domainEvents)
+			await _mediator.Publish(domainEvent);
+	}
+
+Để commit được thì chúng ta dùng lệnh commit. Tuy nhiên sau khi commit xong chúng ta phải check tất cả các event trong domain event trong entity này sẽ được clear đi hoàn toàn, tức là chúng ta sẽ publish tấ cả.
+Nếu có bất cứ thay đổi gì trong entity nào đấy thì sẽ có 1 event phát ra cho bên ngoài nhìn thấy, và mỗi lần chúng ta commit transaction thì chúng ta publish tất cả event ra để cho các thành phần hay các service bên ngoài có thể nhận được event đấy. Cơ chế này rất hay
+- Ví dụ chúng ta tạo mới 1 repository cho thằng user chẳng hạn và chúng ta thay đổi tên user thì chúng ta phải add 1 event là Eventchangename và đương nhiên trong tối tượng T<user> này nó đã có 1 list DomainEvents. Có 1 event tên là Eventchangename
