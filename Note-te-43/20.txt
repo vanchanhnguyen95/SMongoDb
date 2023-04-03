@@ -1,0 +1,77 @@
+Bài 20: Xây dựng tầng API
+*** Add thêm nuget package
+- Autumapper v 10.1.1
+- AutoMapper.Extensions.Microsoft.DependencyInjection v 8.1.1
+- MediatR v9.0.0
+- MediatR.Extensions.Microsoft.DependencyInjection v 9.0.0
+- MongoDB.Driver v 2.13.0
+Add 
+ <ProjectReference Include="..\Examination.Infrastructure\Examination.Infrastructure.csproj" />
+<ProjectReference Include="..\Examination.Application\Examination.Application.csproj" />
+
+
+*** Trong start up
+
+
+services.AddSingleton<IMongoClient>(c =>
+		{
+			var user = Configuration.GetValue<string>("DatabaseSettings:User");
+			var password = Configuration.GetValue<string>("DatabaseSettings:Password");
+			var server = Configuration.GetValue<string>("DatabaseSettings:Server");
+			var databaseName = Configuration.GetValue<string>("DatabaseSettings:DatabaseName");
+			return new MongoClient(
+				"mongodb://" + user + ":" + password + "@" + server + "/" + databaseName + "?authSource=admin");
+		});
+services.AddScoped(c => c.GetService<IMongoClient>()?.StartSession());
+		
+services.AddTransient<IExamRepository, ExamRepository>();
+services.AddTransient<IExamResultRepository, ExamResultRepository>();
+services.AddTransient<IUserRepository, UserRepository>();
+** AddTransient: dùng AddTransient vì không lưu trạng thái gì
+
+services.AddAutoMapper(cfg => { cfg.AddProfile(new MappingProfile()); });
+services.AddMediatR(typeof(StartExamCommandHandler).Assembly);
+
+** Cho phép làm việc với tất cả domain:
+services.AddCors(options =>
+	{
+		options.AddPolicy("CorsPolicy",
+			builder => builder
+				.SetIsOriginAllowed((host) => true)
+				.AllowAnyMethod()
+				.AllowAnyHeader()
+				.AllowCredentials());
+	});
+	
+** Cấu hình middware pipeline
+ app.UseCors("CorsPolicy");
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllers();
+});
+
+** ***
+** Add 1 controller mới: ExamsController
+- Có đối tượng _mediator: làm nhiệm vụ publish event hoặc là những command, những query về phía application nó sẽ handler lại. Nó là command bus, giúp chúng ta truyền event, command đi.
+
+** Tạo secret
+{
+    "DatabaseSettings": {
+      "Server": "localhost",
+      "DatabaseName": "Exam",
+      "User": "",
+      "Password": ""
+    },
+    "IdentityUrl": "overried"
+}
+
++ Quy định domain Đầu 6: tầng Api. dầu 5 là API client
+
+*** Build
+- Vào trong url API để chạy: 
++ cd src/Examination/Examination.API
++ dotnet run
+
+- Test api, gõ url: https://localhost:5002/swagger/index.html
+Đang bị lỗi khi gọi API, do chưa register danh sách handler
+Sửa file start up:   services.AddMediatR(typeof(StartExamCommandHandler).Assembly);
