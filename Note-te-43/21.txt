@@ -1,0 +1,24 @@
+#21: understand about RESTful API
+
+*** Guiding Principles of REST
+- Client-Server
+- Stateless
+- Cacheable
+- Uniform Interface
+- Layered system
+- Code on demand (optional)
+Tuân thủ được 6 cái này là restful
+
+- Dùng danh từ thay vì động từ
+- Dùng số nhiều hơn số ít
+
+*** Status Codes
+- Đầu 2: thành công
++ 200 OK : thuần thành công
++ 201 Created: tạo mới thành công
++ 204 No Content: bất cứ gì thành công
+
+- Đầu 4: lỗi liên quan client
++ 400 Bad Request: truyển request sai
+
+- Đầu 5: Lỗi liên quan server
