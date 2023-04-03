@@ -1,0 +1,13 @@
+#22: API Versioning
+Giúp quản lý sự thay đổi API, gồm phần nghiệp vụ, url, reques, respon, ko làm ảnh hưởng version cũ đang chạy.
+- Tập trung vào url versioning
+
+** Thêm package
+Microsoft.AspNetCore.Mvc.Versioning  v 5.0.0
+Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer v 5.0.0
+
+** Add vào start up
+
+** Tách Thư mục theo version ở Controller
+
+** Sửa lại chỗ Add Swagger
