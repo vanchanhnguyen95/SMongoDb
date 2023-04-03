@@ -1,0 +1,40 @@
+Bài 23: Tích hợp Logging
+- Add Serilog vào
+write log ra console, write log ra file
+- Serilog  v 2.10.0
+- Serilog.Sinks.File  v 5.0.0
+- Serilog.Sinks.Console v 4.0.0
+- Serilog.AspNetCore v 4.1.0
+** Vào phần program để cấu hình
+
+
+**** Giải thích CreateSerilogLogger
+// Create a logger object
+Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
+{
+	return new LoggerConfiguration()
+		.MinimumLevel.Information()
+		.Enrich.WithProperty("ApplicationContext", appName)
+		.Enrich.FromLogContext()
+		.WriteTo.Console()
+		.WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day, shared: true)
+		.ReadFrom.Configuration(configuration)
+		.CreateLogger();
+}
+Ghi log tất cả phương thức
+.WriteTo.Console : write ra console
+.WriteTo.File : write ra file
+.ReadFrom.Configuration: đọc từ Configuration
+
+** Thêm ghi log ở Examination.API controller
+
+** Thêm ghi log ở Examination.Application
+- Phải thêm logging extension vào Examination.Application mới thêm ghi log đc ko sẽ lỗi
+Microsoft.Extensions.Logging.Abstractions v 5.0.0
+>Examination.Application/Queries/V1/GetHomeExamList
+
+** làm sao để ghi log ra file
+ .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day, shared: true)
+ sẽ tự sinh ra thư mục logs để ghi log trong file  log.txt. Mỗi ngày sẽ sinh ra 1 file log
+
+		
