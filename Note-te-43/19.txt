@@ -1,0 +1,48 @@
+Bài 19: Xây dựng tầng Application và sử dụng CQRS
+*******
+Trong Clean architecture thì thằng Infrastructure là thành phần giúp chúng ta làm việc trực tiếp với các external, với hạ tầng như là Database, file external api. Nó giúp chúng ta thao tác và nó gắn chặt với những thành phần này tức là nó chưa implement là nó gắn chặt rồi. Con thằng Application và Domain thì nó là phần core, core có nghĩa là nó chưa business thôi, nó không gắn với infrastructure nào cho nên sau này chúng ta thay Infrastructure nào cũng được, làm việc với hạ tầng nào không quan trọng, thằng Application và Domain nó không quan tâm. Thằng API là thằng user interface rồi, là phần làm việc với người dùng còn 2 phần này là core. Domain thì nó chứa toàn bộ nghiệp vụ, những cái khai báo về nghiệp vụ, entity của toàn bộ enterprise của mình Còn Application thì nó chưa nghiệp vụ cụ thể của mình. Domain thì có thể chưa toàn bộ doanh nghiệp của mình nhưng mà Ứng dụng nó có nhiều Ứng dụng riêng lẻ thì trong Application nó sẽ chứa những thao tác cụ thể.
+Còn thực tế: Domain nó khai báo các entity, các event, exception của nó; Application là thành phần giúp chúng ta nhận request từ api và cho biết sử dụng domain nào, vào việc gì, nó gọi thành phần infrastructure nào để lưu dữ liệu, tức là nó điều phối, thằng Api chỉ điều phối nhận request thôi còn điều phối nghiệp vụ thì do Ứng dụng làm, còn domain chỉ cần phụ trách về nghiệp vụ.
+
+****** CQRS Pattern :  Command Query Responsibility Segregation
+*** How to CQRS work?
+Khi mà user tạo ra 1 form hay họ submit form thì họ sẽ tạo ra 1 Command do 1 Command Bus làm nhiệm vụ nhận và đẩy command đi, thằng này chính là Mediator, là 1 thư viện giúp chúng ta tạo ra Command Bus. Command Bus này nó sẽ push ra 1 cái command, 1 thằng Command Handler nó sẽ làm nhiệm vụ xử lý và nó thao tác với tầng domain. Thằng Domain thì xử lý nghiệp vụ, các domain event trong này sau đó nó save vào dữ liệu thông qua Repository. Nếu chúng ta tách 2 thành phần command và query ra thì Query nó cũng tạo ra 1 Query và nó sẽ Query trong Database. Thông thường có 2 cách để chúng ta làm việc: 1 là chúng ta chia tách database, tức là 2 database: 1 đọc 1 ghi khác nhau, thì database đọc này nó gọi là Reporting database.
+Reporting database: mỗi lần chúng ta tác động vào database nó sẽ có 1 event bus để nó đồng bộ dữ liệu cho thằng database đọc và cứ như thế. Chúng ta có 2 database và nó luôn luôn đồng bộ với nhau thông qua bus, Còn loại thứ 2 là: Chúng ta cũng chia tách nhưng chúng ta chỉ chia tách phần model đọc ghi thôi, còn database chung, chúng ta có 2 cách đấy, về cơ bản chúng ta vẫn có những lợi ích chia tách của thằng đọc, nó giúp chúng ta dễ bảo trì hơn, phù hợp với DDD hơn, sau này chúng ta tách cũng rất dễ, sau này tách sẽ tách model trước, còn sau này chúng ta phát triển luôn microservice, chúng ta tách database, chúng ta chỉ cần thêm event bus này tách database ra là xong
+
+*** Advantages
+- Giúp chúng ta thiên về phía nghiệp vụ hơn là CRUD
+- CQRS hợp với môi trường lập trình hướng sự kiện. Mỗi command đẩy đi thì đều sinh ra một hoặc nhiều event, chúng ta lưu event đấy trong 1 database, chúng ta check những event đấy để chúng ta biết được là: Trên Cơ sở dữ liệu những trạng thái ấy là state, còn để làm sao để sinh ra state thì có rất nhiều event tác động đến state đấy, thì chúng ta lưu event đấy gọi là event sourcing.
+- Phù hợp với domain phức tạp
+** When use it?
+CQRS should only be used on specific portions of a system (a BoundedContext in DDD lingo) and not the system as a whole.
+The other main benefit is in handling high performance applications. 
+
+***** Xây dựng tầng Application
+- Chia 2 thành phần chính: 2 folder: Command, Queries
+- Command: chứa danh sách command
+- Queries: chứa danh sách Query
+Ngoài ra có thêm:
+- Mapping: để mapping profile cho AutoMapper
+- DomainEventHandlers: xử lý những xử kiện xảy ra trên ứng dụng đấy
+
+- Add refrerence: MediatR v9.0
+- Add refrerence: Examination.Domain
+- Add refrerence Dto (BuildingBlocks)
+- Add refrerence MongoDB.Driver v 2.13.0
+- Add refrerence AutoMapper v 10.1.1
+- Add refrerence AutoMapper.Extensions.Microsoft.DependencyInjection v8 .1.1
+
+*** Commands
+- Mỗi command sẽ tạo ra 1 thư mục, trong command thì có đối tượng command
+
+* Trong BuildingBlocks/Examination.Dtos
+Thêm ExamDto.cs
+- MappingProfile: kế thừa Profile của automapper. Tạo 1 mapping profile
+public MappingProfile()
+	{
+		CreateMap<Exam, ExamDto>().ReverseMap();
+	}
+	
+- Không muốn dùng luôn Exam vì nó là entity, nếu dùng sẽ bị phụ thuộc vào Entity sẽ ko tốt cho tùy biến sau này, khi sửa gì ở database sẽ ko ảnh hưởng
+- Phần DomainEventHandlers:
+ chưa những thông tin về DomainEventHandl: tư động đồng user khi nó start domain. Tức là mình sẽ không đồng bộ khi đăng nhập mà đồng bộ khi bắt đầu làm bài => Tạo ra 1 event handle để xử lý khi mà bất cứ 1 ai bắt đầu bài thi, thì chúng ta sẽ start event này và chúng ta dùng INotificationHandler để lắng nghe sự kiện này, sự kiện ExamsTart này: nếu mà bất cư ai start event, thì chúng ta đồng bộ user đấy sang event bên này
+
