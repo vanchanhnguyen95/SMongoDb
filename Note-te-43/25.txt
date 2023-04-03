@@ -1,0 +1,27 @@
+Bài 25: Seeding dữ liệu vào MongoDB
+*** Trong Examination.Infrastructure/SeedWork
+Thêm ExamMongoDbSeeding.cs
+
+** Nhớ trong các class như category cần thêm constructor
+** Level
+** Seeding GetPredefinedExams
+Mỗi 1 exam là 1 đề thi. Gồm: tên đề thi, mô tả đề thi, số giờ làm bao nhiêu, mức độ dễ hay khó,
+Số lượng câu hỏi để pass, có giới hạn thời gian không
+Trong mỗi 1 câu hỏi sẽ chứ các câu trả lời và mỗi 1 câu trả lời nó sẽ có 1 câu trả lời là đấy có phải câu trả lời đúng không bởi vì chúng ta cho phép: chọn nhiều, chọn một cho nên chúng ta có nhiều câu trả lời đúng
+
+** Gọi trong program
+- Sử dụng:  webBuilder.CaptureStartupErrors(false); 
+- Sử dụng luốn đối tượng config bên ngoài truyền vào:
+    webBuilder.ConfigureAppConfiguration(x => x.AddConfiguration(configuration));
+- Khi chúng ta chạy web host cần có 1 scope
+- Chúng ta phải thêm đoạn chạy seeding trước khi chúng ta run
+using (var scope = host.Services.CreateScope())
+                {
+                    var services = scope.ServiceProvider;
+                    var logger = services.GetRequiredService<ILogger<ExamMongoDbSeeding>>();
+                    var settings = services.GetRequiredService<IOptions<ExamSettings>>();
+                    var mongoClient = services.GetRequiredService<IMongoClient>();
+                    new ExamMongoDbSeeding()
+                        .SeedAsync(mongoClient, settings, logger)
+                        .Wait();
+                }
