@@ -1,0 +1,17 @@
+Bài 27: Tích hợp ASP.NET Identity với QuickStart UI
+**
+Nó đã dùng 1 class là test user:
+Lúc tao mới đã có thằng class TestUsers của thẳng Entity có sẵn
+** Claim
+- là các mẫu thông tin dạng key-value nó được gắn vào user, ngoài các thông tin chính đưa ra thì chúng ta gắn thêm thông tin nào vào cũng được, khi chúng ta đăng nhập thì chúng ta truy cập vào mẫu đấy: ví dụ list quyền user có, thay vì lúc nào cũng chọc vào database để lấy danh sách quyền thì chúng ta gắn vào các Claim và chúng ta gắn vào user thì chúng ta lúc nào chúng ta cũng nhìn được quyền của user đấy mà không cần đăng nhập database. Giống như cung cấp cho bạn 1 thẻ cccd thì chúng ta ko cần truy cập db.
+- Thế lúc nào đang dùng class TestUsers => Chính là controller Account: nó chứa method chính login, ngoài ra còn có ExternalController
+ Bỏ testUser đi dùng Application user, user thật:
+ thay bằng:   private readonly SignInManager<ApplicationUser> _signInManager;
+			private readonly UserManager<ApplicationUser> _userManager;
+ + SignInManager: giúp chúng ta đăng nhập  => đây là thư viện giúp chứng thực
+ + UserManager: giúp chúng ta cập nhật
+
++ Nếu cho đăng nhập bằng Name thì dùng: var user = await _userManager.FindByNameAsync(model.Username);
+ tường tự cho nếu đăng nhập bằng Email
+ 
+- ExternalController: giúp có tinh năng đăng nhập từ provider khác, ví dụ: facebook, gmail
