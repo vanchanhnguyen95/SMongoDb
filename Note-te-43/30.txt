@@ -1,0 +1,98 @@
+Bài 30: Tích hợp Admin UI cho Identity Server
+* Làm nhiệm vụ cấp token, chứng thực
+* Dùng 1 bên đã viết sẵn, Admin UI:
+*Cài extension vscode-solution-explorer  : để xem cấu trúc thư mục
+
+*********Các bước************
+1. Tạo thêm thư mục Identity
+Dùng 1 thằng của skoruba
+https://github.com/skoruba/IdentityServer4.Admin
+
+Đổi tên thư mục, đổi tên project
+- Chú ý project này có thư mục log, bị add vào ignore
+
+** Sửa 2 nơi:
+- Identity.Admin
+
+- Sửa file secret của Identity.Admin
+ "ConnectionStrings": {
+    "ConfigurationDbConnection": "",
+    "PersistedGrantDbConnection": "",
+    "IdentityDbConnection": "",
+    "DataProtectionDbConnection": ""
+  }
+  
+- Sửa file secret của Chung
+{
+    "ConnectionStrings": {
+        "ConfigurationDbConnection": "Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=Identity;Persist Security Info=True;User ID=sa;Password=1",
+        "PersistedGrantDbConnection": "Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=Identity;Persist Security Info=True;User ID=sa;Password=1",
+        "IdentityDbConnection": "Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=Identity;Persist Security Info=True;User ID=sa;Password=1",
+        "DataProtectionDbConnection": "Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=Identity;Persist Security Info=True;User ID=sa;Password=1"
+      },
+      "AdminConfiguration": {
+        "PageTitle": "IdentityServer4",
+        "HomePageLogoUri": "~/images/skoruba-icon.png",
+        "FaviconUri": "~/favicon.ico",
+        "Theme": null,
+        "CustomThemeCss": null,
+        "IdentityAdminBaseUrl": "https://localhost:6003",
+        "AdministrationRole": "Administrator"
+      }
+}
+
+- Secret của entity APi cũ
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=Identity;Persist Security Info=True;User ID=sa;Password=1"
+  },
+  "ExamWebAppClient": "https://localhost:6002",
+    "ExamWebAdminClient": "https://localhost:6001",
+    "ExamWebApiClient": "https://localhost:5002"
+}
+
+
+*** Câu hình Identity.Admin
+** file appsetting.json
+"ConnectionStrings": {
+    "ConfigurationDbConnection": "Server=(localdb)\\mssqllocaldb;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "PersistedGrantDbConnection": "Server=(localdb)\\mssqllocaldb;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "IdentityDbConnection": "Server=(localdb)\\mssqllocaldb;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "AdminLogDbConnection": "Server=(localdb)\\mssqllocaldb;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "AdminAuditLogDbConnection": "Server=(localdb)\\mssqllocaldb;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "DataProtectionDbConnection": "Server=(localdb)\\mssqllocaldb;Database=IdentityServer4Admin;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  
+   "AdminConfiguration": {
+    "PageTitle": "IdentityServer4 Admin",
+    "FaviconUri": "~/favicon.ico",
+    "IdentityAdminRedirectUri": "https://localhost:6003/signin-oidc",
+    "IdentityServerBaseUrl": "https://localhost:5001",
+    "IdentityAdminCookieName": "IdentityServerAdmin",
+    "IdentityAdminCookieExpiresUtcHours": 12,
+    "RequireHttpsMetadata": false,
+    "TokenValidationClaimName": "name",
+    "TokenValidationClaimRole": "role",
+    "ClientId": "identity_admin",
+    "ClientSecret": "secret",
+    "OidcResponseType": "code",
+    "Scopes": ["openid", "profile", "email", "roles"],
+    "AdministrationRole": "Administrator",
+    "HideUIForMSSqlErrorLogging": false
+  },
+  
+  
+******** Seeding dữ liệu
+trong file identitydata.json
+identityserverdata.json
+
+
+
+https://localhost:5002/swagger/index.html
+
+"ConfigurationDbConnection": "Server=NC-CHANHNV\\MSSQLSERVER2;Database=Identity;User ID=sa;Password=1",
+      "PersistedGrantDbConnection": "Server=NC-CHANHNV\\MSSQLSERVER2;Database=Identity;User ID=sa;Password=1",
+      "IdentityDbConnection":"Server=NC-CHANHNV\\MSSQLSERVER2;Database=Identity;User ID=sa;Password=1",
+      "DataProtectionDbConnection": "Server=NC-CHANHNV\\MSSQLSERVER2;Database=Identity;User ID=sa;Password=1"
+	  
+	  .\MSSQLSERVER2
