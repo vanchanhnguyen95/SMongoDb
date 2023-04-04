@@ -1,0 +1,21 @@
+Bài 29: Tích hợp đăng nhập cho Swagger UI
+*** Bước 1
+- Thêm using Examination.API.Filters: AuthorizeCheckOperationFilter.cs 
+- AuthorizeCheckOperationFilter: mục đích filter Operations xem là request hiện tại của swagger có được Authorize hay không? Nếu không Authorize thì nó sẽ không được trả về lỗi 403/401
+
+- Examination.API: Sửa file startup
+
+*** Bước 2
+Add thêm Authorize, brear
+- Đang bị sai redirect vì lúc seeding lúc bị sai
+=> Drop database chạy lại
+USE master;
+GO
+
+ALTER DATABASE [IDENTITY] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
+DROP DATABASE [IDENTITY];
+GO
+
+********
+Nhập client ID: exam_api_swaggerui
