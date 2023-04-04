@@ -1,0 +1,45 @@
+Bài 26: Thêm QuickStart UI vào Identity
+Application URLs:
+Identity: https://localhost:5001
+Exam API: https://localhost:5002
+Exam Admin: https://localhost:6001
+Exam Portal: https://localhost:6002
+Docker Command Examples
+docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Admin@123$' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest
+docker ps or docker container ls
+docker run -d --name mongodb -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=Admin@123$ -p 127.0.0.1:27017:27017 mongo
+Clone Quick Start UI: curl -L https://raw.githubusercontent.com/IdentityServer/IdentityServer4.Quickstart.UI/main/getmain.sh | bash
+iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/IdentityServer/IdentityServer4.Quickstart.UI/main/getmain.ps1'))
+
+Packages References
+https://github.com/serilog/serilog/wiki/Getting-Started
+https://github.com/IdentityServer/IdentityServer4.Quickstart.UI
+References URLS
+https://samwalpole.com/using-scoped-services-inside-singletons
+https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-5.0
+
+
+
+**************************
+** QuickStart
+giúp chúng ta đăng nhập, đăng ký, consent, cho phép người dùng truy cập thông tin gì ở profile, quản lý device, grant
+
+**
+iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/IdentityServer/IdentityServer4.Quickstart.UI/main/getmain.ps1'))
+
+- QuickStart nó bao gồm luôn cả MVC nên là chúng ta có thể đưa controller vào thư mục controller của chúng ta, View thì vào view, model thì vào model
+- Sửa lại các namespace ở Model, controller
+- Thêm thư mục  Attributes
+- Chỉnh lại file start up: => nhận diện được file home url home: https://localhost:5001/
+	endpoints.MapControllerRoute(
+                            name: "default",
+                            pattern: "{controller=Home}/{action=Index}/{id?}");
+- Sửa lỗi ko nhận được đường dẫn file 
+add thêm trong file start up:
+app.UseStaticFiles();
+
+====> Identity đảm bảo login cho toàn bộ ứng dụng và chúng cũng có giao diện login
+
+
+
+
