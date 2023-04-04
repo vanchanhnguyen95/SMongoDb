@@ -1,0 +1,27 @@
+Bài 31: Thêm project admin với Blazor Web Assembly
+
+*** Sửa lại gen db vì bị thiếu: thiếu config kiểu của client
+* Sửa thiếu access token trong file identityserverdata.json
+- Thêm 4 line:"AllowAccessTokensViaBrowser": true,
+- Sửa "AllowedGrantTypes" cuối cùng "AllowedGrantTypes": ["implicit"],
+,.... nhiều. sửa lại file đấy
+- Sửa file serilog.json
+
+
+* Lệnh Xóa db
+USE master;
+GO
+
+ALTER DATABASE zap SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
+DROP DATABASE zap;
+GO
+
+
+**** Sửa lại ghi logs vào database
+sửa file serilog.json, sửa cả file .development
+
+
+**** Tạo 1 webapp mới
+WebApps > AdminApp
+- Chuột phải thư mục WebApps: Chọn Add new project Blazor web assembly
