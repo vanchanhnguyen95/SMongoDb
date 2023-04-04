@@ -1,0 +1,30 @@
+Bài 32: Cài đặt giao diện Admin với MudBlazor
+***Ghép giao diện cho adminapp
+- Dùng thư viện material design
+- Dùng https://www.matblazor.com/ và  https://mudblazor.com/ hỗ trợ map component  trên material design
+- Chọn mudblazor vì có dựng sẵn template admin rồi dùng luôn mặc dù trên github thì matblazor có lượng sao nhiều hơn
+- Document cũng có hết
+https://mudblazor.com/getting-started/installation#manual-install-add-script-reference
+Cách add css vào, add cdn vào
+- add reference cho AdminApp:
+ + MudBlazor v 5.1.0
+ + MudBlazor.ThemeManager Version="1.0.3"
+ 
+- Thêm cdn vào file index.html ở wwwroot
+- Thêm folder Theme > Tạo MudBlazorAdminDashboard.cs
+- thêm trong file App.razor
+- Thêm trong file _Imports.razor
+- Thêm trong file program mới dùng được
+- Sửa thư mục Shared
++ LoginLayout.razor
++ MainLayout.razor
+
+- Đổi namespace ở phần Models
+chú ý đổi namespace các các phần khác
+
+- Chỉnh để chạy thử
+Phải vào lauchSetting: xóa phần dùng iis đi mới chạy thử được
+- Chú ý có một số thẻ MudBlazor cần đổi => Tìm kiếm thẻ tương tự đổi
+- Chú ý bị lỗi: Cần sửa lại MainLayout.razor
+- Chú ý phần import có đủ hay không
+- Chú ý lỗi có thể lỗi do phiên bản
