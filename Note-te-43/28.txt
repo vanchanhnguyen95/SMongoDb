@@ -1,0 +1,17 @@
+Bài 28: Cấu hình chạy nhiều project trong VSCode
+**** Tạo 1 file Task để chạy được nhiều project 1 lúc
+- Chạy cả api lẫn, identity
+
+*** Tạo ra 1 Task
+ Ctr + Shift + B => Run build task => .net core
+ 
+- Tạo file launch.json cho thằng Examination.API, Identity.API , Identity.API chạy trước
+- thêm compounds để chạy cùng lúc 2 thằng
+"compounds": [
+        {
+            "name": "Compound",
+            "configurations": []
+        }
+    ],
+	
+	D:\Project\te-43\tedu_exam-lessions-25\src\Identity\Identity.API\bin\Debug\net5.0

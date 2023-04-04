@@ -16,12 +16,12 @@ Trong mỗi 1 câu hỏi sẽ chứ các câu trả lời và mỗi 1 câu trả
 - Khi chúng ta chạy web host cần có 1 scope
 - Chúng ta phải thêm đoạn chạy seeding trước khi chúng ta run
 using (var scope = host.Services.CreateScope())
-                {
-                    var services = scope.ServiceProvider;
-                    var logger = services.GetRequiredService<ILogger<ExamMongoDbSeeding>>();
-                    var settings = services.GetRequiredService<IOptions<ExamSettings>>();
-                    var mongoClient = services.GetRequiredService<IMongoClient>();
-                    new ExamMongoDbSeeding()
-                        .SeedAsync(mongoClient, settings, logger)
-                        .Wait();
-                }
+	{
+		var services = scope.ServiceProvider;
+		var logger = services.GetRequiredService<ILogger<ExamMongoDbSeeding>>();
+		var settings = services.GetRequiredService<IOptions<ExamSettings>>();
+		var mongoClient = services.GetRequiredService<IMongoClient>();
+		new ExamMongoDbSeeding()
+			.SeedAsync(mongoClient, settings, logger)
+			.Wait();
+	}
