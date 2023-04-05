@@ -1,0 +1,27 @@
+Bài 38: Hiển thị danh sách câu hỏi
+Api cũng copy nguyên tương tự với UI
+
+** Trong thư mục AdminApp
+- Clone  service
+- Nhớ inject, import
+- Giao diện nhớ format Date:
+ <RowTemplate>
+	<MudTd DataLabel="Name">@context.Content</MudTd>
+	<MudTd DataLabel="Name">@context.Level</MudTd>
+	<MudTd DataLabel="Name">@(context.QuestionType == QuestionType.SingleSelection?"Single":"Multiples") </MudTd>
+	<MudTd DataLabel="Name">@context.CategoryName</MudTd>
+	<MudTd DataLabel="Name">@context.DateCreated.ToString("dd/MM/yyyy hh:mm")</MudTd>
+	<MudTd>
+		<MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="()=>NavigateToEdit(context.Id)" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Class="ma-2" />
+		<MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="async ()=>await OnDeleteTask(context.Id)" Variant="Variant.Filled" Color="Color.Error" Size="Size.Large" Class="ma-2" />
+
+	</MudTd>
+</RowTemplate>
+
+-- Chú ý phần lấy thông tin join 2 bảng của Question
+QuestionRepository rất hay
+
+** Trong mongoDb thay vì ưu tiên việc join thì chúng ta ưu tiên việc lưu thừa dữ liệu, cho nên là chúng ta => Cho bảng Question lưu thêm 1 trường nữa là: CategoryName => Lúc insert question thì insert cả CategoryName nào
+
+- Thêm 1 menu nữa trong phần NavMenu
+- Chú ý sửa lỗi Question bị disable
