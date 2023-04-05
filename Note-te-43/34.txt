@@ -1,0 +1,114 @@
+Bài 34: Login Admin App với Identity Server sử dụng Resource Owner Password
+Tích hợp phần đăng nhập từ phần admin đến phần identity
+
+*** Trong Identity.Admin
+- Chỉnh lại file identityserverdata.json
+- Chú ý file secrets
+- Chú ý file appsetting.json
++ Trong production thì ko để link này mà thay link khác nên để overide, dưới load thì để secret
+	"IdentityAdminRedirectUri": "override",
+    "IdentityServerBaseUrl": "override",
+  "AdminConfiguration": {
+    "IdentityAdminRedirectUri": "https://localhost:6003/signin-oidc",
+    "IdentityServerBaseUrl": "https://localhost:5001"
+  }	
+
+- Sửa identitydata.json
+
+*** Chạy thử ứng dụng
+Tài khoản: admin/Admin@123$
+
+*** Vào client chỉnh lại quyền: https://localhost:6003/Configuration/Clients
+**Chỉnh lại cho Cliend ID: Client Id: exam_web_admin => Edit
+* exam_web_admin
+- Allow Offline Access: bật lên
+- Trong Allowed Scopes: Thêm offline_access
+- Trong Allowed Grant Types: chỉnh lại từ authorizetion_code => password
+
+* Trong Identityadmin
+- https://localhost:6003/Identity/UserProfile
+- Vào quản lý user > Thêm Claim
+- Thêm Claim: https://localhost:6003/Identity/UserClaims/4abbaf7d-49ce-4de2-b357-f5c1466ccfee
+ thêm 2 Claim:
+ 
+***  Trong Identity.STS.Identity
+- implement Services trong thư mục Services:
+ + implement các service
+ + Tạo class Extension để add vào: CustomIdentityServerBuilderExtensions.cs
+ 
+ 
+ 
+**** Đến phần AdminApp
+- Cần lưu các session sau khi đăng nhập vào SessionStorage.
+Lúc trước dùng Localstore nhưng bây giờ dùng SessionStorage, 2 thằng này khác nhau ở chỗ là: Mỗi lần chúng ta tắt trình duyệt thì thằng session storage nó hủy nhưng mà đối với localstorage thì nó sẽ lưu perssition vào đấy, mình ko dùng localstorage, mà dùng SessionStorage: tắt trình duyệt là mất
+- Vào nuget => cài Blazored.SessionStorage v2.1.0
+- Cài các Configuration để chúng ta đọc các file config trong appsetting cho thằng blazor
+ <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
+<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+- Thêm thư mục: Services
++ Có IAuthService để tương tác với token, Viết implement AuthService
+- Thêm file appsetting.json
+- Trong Model
+	+ Thêm LoginRequest
+
+- Trong AuthService:
+ + CÓ AuthenticationStateProvider: giúp chúng ta lưu state login dưới máy, Chính là: user.identity, claim các chứ
+ 
+- Chúng ta có 2 thứ: AccessToken, RefreshToken
+ await _sessionStorage.SetItemAsync(KeyConstants.AccessToken, token.AccessToken);
+ await _sessionStorage.SetItemAsync(KeyConstants.RefreshToken, token.RefreshToken);
+ + AccessToken: trao đổi giữa client và server, cái này chỉ nằm dưới client thôi nên ít bị lộ hơn
+ + RefreshToken: Refresh lại Token nếu hết hạn
+
+- Tạo thư mục Core: chứa các thông tin =>
+ + Có thư mục Authentication
+ + Có thư mục Extensions
+ + Có class Constants
+
+- Khai báo trong file program.cs
+	builder.Services.AddBlazoredSessionStorage();
+    builder.Services.AddAuthorizationCore();
+    builder.Services.AddScoped<IAuthService, AuthService>();
+
+*** Trong AuthService thì:
+- Chúng ta có hàm login nó sẽ dùng discovery đường dẫn của identity ra 5001 sau đó
+ + Ok thì nó sẽ gửi đến RequestTokenAsync. RequestTokenAsync truyền vào: user, password rồi RequestPasswordTokenAsync:
+ có ClientID, CliendSecret, Scope (nhớ phải có offline_access thì mới refresh được token)
+ + Nếu request thành công và Error = False thì nó sẽ xét session Storage cho : AccessToken, RefreshToken đồng thời MarkUserAsAuthenticated,
+- Hàm Logut thì xóa đi thôi
+	
+*** Sửa Form Login
+- Sửa giao diện, sửa các thẻ, thêm form vào. Model của chúng ta là class LoginModel
+- Để mà dùng chung thì chúng ta phải import vào file _Imports.razor: @using AdminApp.Models
+- Trong form Login ở phần Page:
+	@inject NavigationManager NavigationManager;
+	@inject IAuthService AuthService;
+	
+- Sau khi đăng nhập xong > sẽ gán được session
+
+**** Thử chạy project
+- Đã login đc > đã lưu được SessionStorage rồi: Đã lưu được: AccessToken, RefreshToken
+
+** Tiếp theo là show được tên của mình ra: chính là given_name đã tạo
+- Bản chất là mình đã add nó vào Claim rồi => Bây giờ viết ra 1 extension để lấy ra claim.
+Extension lấy ra Claim chúng ta sẽ để trong Core/Extensions/IdentityExtensions.cs
+ + GetUserId
+ + GetFullName
+- Nhờ vào IdentityExtensions thì chúng ta sẽ xử lý nó ở trong file MainLayout.razor:
+ file này chứa phần show thông tin
+
+- File MainLayout.razor
++ Nhớ Import: AdminApp.Core vào file _Imports.razor mới gọi đc
+ + ko Dùng initial đồng bộ mà dùng initial bất đồng bộ để lấy được thông tin ra
+ + Nếu chưa IsAuthenticated thì cho về trang login luôn
+ 
+>>>>> <<<<<<<
+Đã lưu được token cũng như chúng ta login được từ identity server mà khoogn cần phải redirect qua đấy, cho nên các ứng dụng mobile có thể redirect trực tiếp được.
+==> Chú ý hàm Login: dùng dis
+ 
+
+
+
+	
