@@ -1,0 +1,27 @@
+Bài 36: Nâng cấp Admin UI lên .NET 5 và refactoring code
+- refactoring code cho đẹp hơn
+- Lần trước đang bị sai exam
+- Identity update lên .net 5
+
+* Examination.Infrastructure.MongoDb/BaseRepository.cs
+- Tạm thời bỏ transaction của mongo
+
+- Đổi tên lại các Folder, cần chia lại cho hợp lý
+- Sửa lại ConnectionStrings: Identity.Admin
+
+    "ConfigurationDbConnection": "Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=IdentityServer4Admin;Persist Security Info=True;User ID=sa;Password=1",
+    "PersistedGrantDbConnection": "Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=IdentityServer4Admin;Persist Security Info=True;User ID=sa;Password=1",
+    "IdentityDbConnection": "Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=IdentityServer4Admin;Persist Security Info=True;User ID=sa;Password=1",
+    "AdminLogDbConnection": "Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=IdentityServer4Admin;Persist Security Info=True;User ID=sa;Password=1",
+    "AdminAuditLogDbConnection": "Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=IdentityServer4Admin;Persist Security Info=True;User ID=sa;Password=1",
+    "DataProtectionDbConnection": "Data Source=NC-CHANHNV\\MSSQLSERVER2;Initial Catalog=IdentityServer4Admin;Persist Security Info=True;User ID=sa;Password=1"
+
+- Sửa lại ile identitydata.json
+- Sửa lại ile identityserverdata.json
+- Sửa lại config serilog
+
+- Xóa Db đi để migrate lại
+- Xóa IIS
+
+****** Chạy Identity.Admin trước
+- Chạy project gen db trước
