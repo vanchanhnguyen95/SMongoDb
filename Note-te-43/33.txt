@@ -1,0 +1,27 @@
+Bài 33: Cài đặt môi trường trên Windows và chạy ứng dụng
+- Cài mac đang bị lỗi
+- Cài mongodb và sql trên máy:
+mongodb://localhost:27017/
+- Cài .net 5.0.17,  .net 3.1.17
+https://dotnet.microsoft.com/download/dotnet/3.1
+https://dotnet.microsoft.com/download/dotnet/5.0
+- Cài visual studio 2019
+- Clone project
+- Chỉnh sửa appsetting
+
+********* Bắt đầu
+1. Chạy để có Db trước : Db mongo
+Examination.API
+- Chuột phải start up Examination.API
+- Chọn profile là chính nó
+- Chạy
+
+2. Chạy để có Db trước : Db sql server
+- Chuột phải start up Identity.Admin
+- Chọn profile là chính nó
+- Chạy
+- Bị lỗi nhưng vẫn seeding được (vì lỗi quyền..)
+
+3. Chạy multi project
+Chỉnh lại thứ tự
+Identity.STS.Identity > AdminApp > Examination.API > Identity.Admin
