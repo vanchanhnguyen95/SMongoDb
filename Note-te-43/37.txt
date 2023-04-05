@@ -1,0 +1,28 @@
+Bài 37: Tạo API cho quản lý câu hỏi
+*** Sửa lại
+- Sửa lại bài trước Đang nâng cấp bị thiếu
+- Kế thừa
+*** Tạo API Danh sách câu hỏi
+- Thấy các controller có những cái dùng chung  => Tạo ra 1 base API
+- Clone từ Categories
+Clone Dto, Model, Repository,....
+- Clone ở các hàm thì Question cần nhiều tham số hơn, trogn các phần như: Command
+
+- Nhớ clone xong phải add vào trong file program.cs, add vào phầm Mapping: Mapping Với Dtos
+
+- Chấp nhận việc duplicate code để nó độc lập với nhau
+
+- Tách 1 class ServicesRegister riêng (Gọi là viết extension method)
+public static class ServicesRegister
+    {
+        public static void RegisterCustomServices(this IServiceCollection services)
+        {
+            services.AddTransient<IExamRepository, ExamRepository>();
+            services.AddTransient<IExamResultRepository, ExamResultRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IQuestionRepository, QuestionRepository>();
+        }
+    }
+
+- Thêm Authorize => add vào program:   app.UseAuthorization();
