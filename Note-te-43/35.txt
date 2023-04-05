@@ -1,0 +1,67 @@
+Bài 35: Quản lý danh mục câu hỏi
+Examination.Domain
+- Làm phần CRUD Category
+- Nên đặt 1 Aggregate 1 Controller
+
+**** Bước 1: Xây dựng phần API
+API sẽ viết theo dạng CQRS
+- Tạo mới, update, delete là command. Select là Query
+- Thêm mới 1 Interface trong AggregateModels
+- Add thêm Dtos, thêm seedwords (BuildingBlocks > )
+**** Dtos: giúp chúng ta tách biệt Entity với model bên ngoài để cho nó dễ bị phụ thuộc với nhau
+- Các class dùng Generic để phân trang
+
+****
+- CategorySearch: chứa biến search đầu vào, phân trang
+***
+Nhớ thay đổi namespace cho chuẩn
+
+* khi mà 1 phương thức CreateCategory muốn trả về cái gì nó sẽ là generic của request đấy
+
+* CreateCategoryCommandHandler
+- là 1 cặp command chưa các model chưa dữ liệu
+- Handle là xử lý sự kiện
+
+*** Nhớ tạo ra mapping trong Application nữa
+public class MappingProfile : Profile
+   {
+public MappingProfile()
+{
+	CreateMap<Exam, ExamDto>().ReverseMap();
+	CreateMap<Category, CategoryDto>().ReverseMap();
+}
+
+*** GetCategoriesPagingQueryHandler
+Get Paging này làm trong repository thôi, nếu search keyword thì build ra còn không thì chúng ta để Filter empty giống như Where trong linq
+
+** Check lại xem đủ chưa: using chưa trogn controller,...
+
+**** Bước 2: Xây dựng phía Client
+WebApps/AdminApp
+* Add thêm  <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />:
+ để xử lý việc query
+
+* Tạo thư mục Components ()
+> ConfirmationDialog.razor (dùng MudDialog)
+> Pagination.razor
+Thằng này dùng Mudbutton Material design,
+- Link giờ đổi link ngắn hơn
+sửa trong Core/
+
+* Tạo tư mục Features: để chứa tính năng
+- Có PagingLink.cs: chứa danh sách link
+* Sửa thư mục Services
+
+* Sửa thư mục Shared
+- Error.razor
+- NavMenu.razor
+-> Chỉnh lại route
+
+* Sửa _Imports.razor
+* Sửa AuthService.cs
+* sửa thư mục Pages
+....
+
+* Nhớ update file Program.cs
+
+** Chạy
