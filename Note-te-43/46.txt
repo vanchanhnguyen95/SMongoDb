@@ -1,0 +1,2 @@
+Bài 46: Load chi tiết exam
+Dùng OnGet để lấy item detail
