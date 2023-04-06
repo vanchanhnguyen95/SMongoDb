@@ -1,0 +1,23 @@
+Bài 42: Quản lý đề thi
+- Add lại project front end vào để dễ debug
+- seeding lại dbmongo
+- điều chỉnh để ko hiện web browser mà chỉ hiện batch
+- Điều chỉnh Dtos, đổi 1 số trường
+- Sửa ApiErrrResult: thêm thuộc tính StatusCode => quyết định việc trả về StatusCode gì.
+Tương tự cho thằng success
+- ExamController:
+Thêm phương thức GetExam,...
+- Đổi hết lại các API: nếu lỗi là trả về 400, thành công là 200
+
+- Thích CQRS vì mỗi lần thêm tính năng mới thì rất ít bị ảnh hưởng các file cũ, Vì tuân thủ theo SOLID: Open... Hạn chế việc thay đổi trực tiếp file có sẵn.
+- Sửa lại repository
+
+
+***** Sửa phần frontend
+- Add service vào
+- Add thêm interface Iexamservice, Có mấy phương thưc thêm,sửa, xóa nhưng giờ ta tra về APi result, chỗ nào cần API result thì sửa trước cũng được
+*** Thêm sự kiện trên ManinLayout: sự kiện Logout: chỉ cần redirect sang login, xóa token đi
+- Thêm 1 navigation trên Navmenu
+- Có question Dialog, AnswerDialog.razor
+... Sửa các file razor
+- Còn case chưa làm: Câu hỏi trùng
