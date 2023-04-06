@@ -1,0 +1,19 @@
+Bài 40: Form thêm mới câu hỏi
+**** Sửa lại chút phần tích hợp
+- Sửa lại Share> service:
+** Category service
+
+** Question service
+
+*** Sửa phần UI
+* Thư mục Core
+- sửa Constants: thêm urls,...
+* Form thêm mới câu hỏi
+- formm dialog
+- Form NewItems:
+ + Chọn 1 thì không thể có nhiều đáp án đúng được
+ 
+- Bị lỗi routing vì mình vừa sửa routing ở api
+
+** Chỉnh lại trong Application 
+- Phần tạo m
