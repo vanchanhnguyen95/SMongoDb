@@ -1,0 +1,20 @@
+Bài 41: Update và tìm kiếm câu hỏi
+*** Bài này sẽ làm 3 nhiệm vụ:
+- Implement theo phần form thêm mới câu hỏi
+- Tìm kiếm danh sách câu hỏi: tên, danh mục
+- Tách project Webapps này ra khỏi solutions này:
+ Tạo 1 solution mới là webapp để mỗi lần chạy solution này không phải reset lại backend, backend có thể chúng ta sửa backend thôi hoặc chúng ta sửa webapp thôi, đỡ phải chạy lại.
+
+*** 1
+ Sửa AnserDto
+- Khi tạo mới bất cứ 1 answerdto thì nó sẽ sinh ra ClientId. Chúng ta chỉ cần gán luôn giai đoạn tạo mới là NewGuid, dùng cái này tạo ra IdUnix
+- Sửa phần search
+- Thêm phần Edit
+
+** Tách project Webapps này ra khỏi solutions này:
+* Trong visual studio > remove khỏi dự án project chọn là đc
+* Frond end sẽ chạy bằng visual studio code: dotnet watch run
+- Vào frond end sửa, tự đổi theo
+
+* Vẫn dùng chung Building bình thường , reference bình thường, ko sao
+
