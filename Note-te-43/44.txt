@@ -1,0 +1,36 @@
+Bài 44: Tích hợp Authentication với Identity Server
+- Dùng responcode => nó chuyển qua lại identity với trang của chúng ta:
+ giúp chúng ta ko phải làm trang login nữa
+- Tạo ra folder mới: Pages>Auth trong này có: Lgin, logout
+- Trong phần header sẽ có phần menutop:-> link đến trang identity
+- Add file appsetting.json vào để config như thằng Admin
+- Trong file Startup.cs: thêm 
+	app.UseAuthentication();
+	app.UseAuthorization();
+	=> Nhớ 2 dòng này phải nằm đúng thứ tự giữa UseRouting và UseEndpoints, phải đúng thứ tự, là thứ tự pipeline
+++++
+ app.UseHttpsRedirection();
+	app.UseStaticFiles();
+
+	app.UseRouting();
+
+	app.UseAuthentication();
+	app.UseAuthorization();
+
+	app.UseEndpoints(endpoints =>
+	{
+		endpoints.MapRazorPages();
+	});
+++++
+....
+Chú ý sửa cập nhật thêm file start up
+
+- Login.cshtml
+Nhớ để routing: @page "/login.html"
+- Login.cshtml.cs
+-Logout.cshtml
+Logout.cshtml.cs
+
+- AuthenticationConsts có Scheme, Scheme là 1 cái đại diện lưu như: cookie lưu khi đăng nhập, qua extal,...
+Có Cookie Scheme, Extal Scheme: google, facebook
+...
