@@ -1,0 +1,5 @@
+Bài 45: Tích hợp Backend API và load danh sách Exam
+- Update thêm vào file start up
+- Viết ra 1 extension service ServicesRegister.cs để tách riêng các service viết thêm
+*** Chú ý thư mục Service quan trọng:
+- BaseService.cs quản lý các thông tin, các đối tượng Http client
