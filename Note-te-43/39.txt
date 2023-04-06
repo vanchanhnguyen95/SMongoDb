@@ -1,0 +1,26 @@
+Bài 39: Chuẩn hoá API Result
+BuildingBlocks > Examination.Shared
+- Thêm các class generic làm đầu ra của API, tức là: Ngày xưa API trả về 404,400 hay gì đấy thì object nó trả ra thì mỗi người một kiểu nên nhưng mà đống nhất lại thì Object nào cũng có: IsSuccessed, Message, ResultObj
+thì dưới client sẽ rất dễ bắt được theo đúng định dạng
+- Sửa api paging nữa: thêm route
+- Sửa các controller
+- Tạo middlewware
+	Middlewares > ErrorWrappingMiddleware.cs
+- ErrorWrappingMiddleware.cs: Làm nhiệm vụ bắt tất cả những Error mà không được handle
+ thay vì chúng ta try catch cho từng hành động thì chúng ta try hết trogn này. Cái này giúp chúng ya ghi log, handle các lỗi trả về và chúng ta return ra API result tương ứng
+- Thêm Extensions> MiddlewareExtensions.cs để gọi được dễ dàng hơn:
+ Có phương thức UseErrorWrapping  => Add vào file Startup
+- Các command và các query thì custom sẽ trả về apiresult
+
+*** Quan trọng: List có thể thêm, sửa xóa trong đấy còn Ienumerable chỉ đọc thôi
+=> Dùng Ienumerable cho Query (trong CQRS)
+
+** Refact thằng Command và Query rồi, trong này nhớ là luôn trả về wrap thành 1 object sẽ chuẩn hóa hơn
+
+** Trong thằng CreateQuestionCommandHandler: muốn lấy thêm thông tin user
+=> thì dùng thằng private readonly IHttpContextAccessor _httpContextAccessor;
+sẽ lấy được GetUserId. Tại sao chúng ta lấy được User, vì chúng ta có 1 extension là HttpContextExtensions.cs (Tronng Extensions/HttpContextExtensions.cs) 
+
+** Thêm GetAll trong category vì chúng ta chưa có phần GetAll mà chỉ có GetPaging thôi
+
+** Nhớ using
