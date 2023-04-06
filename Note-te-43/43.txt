@@ -1,0 +1,8 @@
+Bài 43: Tạo ứng dụng Portal cho học viên
+Portal App: Là ứng dụng bên ngoài cho học viên sử dụng, Admin app là ứng dụng bên ngoài cho admin sử dụng
+- Dùng razorpage: theo dạng page nhưng ko theo mô hình mvc
+ Giúp chúng ta tách từng trang một: Mỗi View sẽ có logic riêng trogn code behind, có 2 hàm OnPosy, OnGet
+ - replace toàn bộ link ảnh
+*** Trong file _Layout.cshtml
+- Dùng Partial view
+- Phần _preloader 
