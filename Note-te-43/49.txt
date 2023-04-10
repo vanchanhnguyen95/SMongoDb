@@ -1,0 +1,38 @@
+Bài 49: Tạo layout trang Profile
+Nó đang bị khác layout bên ngoài và trang profile. Nó chỉ giống nhau html bên ngoài. Không muốn tạo ra 1 layout mà hoàn toàn duplicate thì không hay.
+- Xử lý: Code nó khác body, ko có header, ko có footer, ta phải sinh ra 1 layout mới: Copy rồi tạo
+- Phần header là bị riêng, bị duplicate chút, header khác mới thằng mainlayout nên chúng ta tách ra
+- Trong dashboard có phần offmenu và wrap
+- Thêm rendorbody
+
+- Profile
+- Phải add 1 cái claim vào data khi chúng ta đăng nhập, thì bên phía entity sẽ bổ sung thêm,
+- Phần gán login claim nằm ở đâu? Identity> Identity.STS.Identity.
+ Phải sửa thêm lúc đăng ký CustomProfileService,... Xong rồi sửa phần Login view của này
+ 
+- Tạo ra 1 cái exentisons để lấy Claim giống như đã từng làm: HttpContextExtensions.cs
+	public static string GetUserId(this ClaimsPrincipal claimsPrincipal)
+        {
+            var claim = ((ClaimsIdentity)claimsPrincipal.Identity)
+                .Claims
+                .SingleOrDefault(x => x.Type == JwtClaimTypes.Subject);
+            return claim?.Value;
+        }
+
+        public static string GetEmail(this ClaimsPrincipal claimsPrincipal)
+        {
+            var claim = ((ClaimsIdentity)claimsPrincipal.Identity)
+                .Claims
+                .SingleOrDefault(x => x.Type == ClaimTypes.Email);
+            return claim?.Value;
+        }
+- Làm sao để lấy ra thông tin claim vừa thêm?..
+
+- Login xong thì làm cách nào để chui sang trang dashboard??
+
+- Đang bị lỗi chưa lấy được claim mới do phải đổi trường AlwaysIncludeUserClaimsInIdToken trong phần Identity Trong bảng Clients thành true
+
+- Sửa lại lúc seeding của Identity.Admin
+sửa file identityserverdata.json: có "AlwaysIncludeuserClaimsInIdToken": true,
+
+- Chỉnh lại 1 chút routing
