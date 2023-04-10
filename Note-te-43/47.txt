@@ -1,0 +1,160 @@
+Bài 47: Làm bài thi trắc nghiệm
+*** Bài chính ***
+- Làm thêm tính năng nếu token hết hạn thì nó sẽ tự động redirect sang Identity và quay lại để chúng ta ko bị ảnh hưởng.
+ Demo: Khi chúng ta take exam thì chúng ta sẽ start exam tức là chúng ta sẽ tạo mới bản ghi ở trên exam result, chúng ta copy toàn bộ thông tin question vào trong thuộc tính question result này. Người dùng chọn đáp án nào cũng lưu hết trong này, tức là chúng ta có thay đổi cấu trúc của bảng exam reslut, exam detail. Bấm take exam thì chúng ta sẽ start cái exam tức là chúng ta tạo mới bản ghi trên exam result, chúng ta copy toàn bộ question vào trong thuộc tính exam result này. Bấm take exam sẽ bắt đầu và đồng hồ đếm ngược nó sẽ đếm số lượng thời gian mà chúng ta có, có bao nhiêu câu hỏi thì có bấy nhiêu nút ở trên này và chúng ta chọn, chúng ta next question. Đến câu cuối cùng thì nó sẽ bật sang Finish. Trước đấy cũng có thể quay lại câu 1, 2,.. để xem. Và nếu hết thời gian thì nếu có hack ở dưới client thì cũng ko submit được vì trên server đã check thời gian finish: Thời gian submit phải nhỏ hơn hoặc bằng thời gian Finish. Finish 1 cái thì nó sẽ về trang exam result. Bài sau chúng ta sẽ show ra kết quả thi.<><><> Đó chính là nội dung bài học <><><>
+- Chúng ta sẽ có kết quả (trong bảng exam_result): user nào, đề thi là gì, kết quả trả lời từng câu hỏi 1, tổng số câu trả lời đúng là bao nhiêu, ngày thi bao nhiêu, ngày kết thúc bao nhiêu
+- Bài này có thay đổi cấu trúc Db: bảng exam: thay duration ngày xưa kiểu int giờ kiểu string
+**** Bắt đầu
+- Đầu tiên remove 2 phần đề thi này
+- Bài 47 có những thay đổi sau: nội dung ở trong phần Domain: AggregateModels
+- Đổi Exam: duration thành string
+Trong thư mục ExamResults
+  ExamResult: Đổi ExamResultDetail thành QuestionResults. Xóa ExamResultDetail đi, tạo ra 2 thằng: QuestionResults và AnswerResult. QuestionResults cũng là 1 Entity bình thường.
+  AnswerResult có trường userChosen: câu hỏi này có được user lựa chọn hay không, có những câu hỏi thì họ chọn nhiều hoặc ít.... Thay đổi cái này cũng phải thay đổi ở phần DTOs (trong thư mục: Examination.Shared),
+  FinishExamRequest
+  NextQuestionRequest: khi chúng ta trả lời từng câu hỏi thì chúng ta cập nhật reslut luôn, nếu như có mất mạng vẫn lưu được kết quả của chúng ta
+  SkipExamRequestL đang làm chúng ta có thể bỏ dở
+  StartExamRequest: bấm vào start exam
+- Trong thư mục Exams
+ Sửa CreateExamRequest: duration thành string
+ Sửa ExamDto
+ UpdateExamRequest
+- Sửa các controller
+
+- Muốn khi khởi tạo swagger thì cũng khởi tạo luôn ClientId cho thằng này (sửa file startup)
+ => Đẩy vào trong UseSwaggerUI: c.OAuthClientId("exam_api_swaggerui"); nó sẽ điền sẵn cho chúng ta cliendId ở trên swagger, ko cần điển tay nữa
+ 
+- Sửa trong Handler
+
+* Logic trong FinishExamCommandHandler.cs
+- Khi chúng ta có phần result lên thì chúng ta sẽ Get Detail ra (GetDetails) từ ExamId đấy, sau đó chúng ta kiểm tra nếu mà bài thi này mà nó đang giới hạn mà giới hạn thời gian hiện tại(giờ UTC) lớn hơn giờ finishDate (tức là thông báo quá hạn rồi) thì thông báo lỗi ra. Còn nếu không thì mình bắt đầu check: câu trà lời đúng trong exam là gì, câu trả lời của khách hàng là gì: nếu mat 2 list này thì nó là trả lời đúng => Pass result. Nếu mà lượng câu hỏi trả lời đúng mà lớn hơn hoặc bằng lượng câu hỏi bắt buộc đúng cho pass thì chúng ta Pass còn không thì chúng ta Fail
+
+* Logic trong SkipExamCommandHandler.cs
+Chúng ta chỉ việc nhận kết quả result đấy và chúng ta xóa result đi thôi. Nhận vào 1 result Id, trả về bool.
+Khi start 1 cái mình sẽ tạo ra 1 đối tượng result luôn, chúng ta chỉ thao tác trên đối tượng result, exam chỉ nhiệm vụ metadata thôi
+
+* Logic trong StartExamCommandHandler
+- StartExamCommand:
+ chỉ cần truyền lên ExamID
+- StartExamCommandHandler
+ chỉnh lại: trả về 1 ExamResultDto. StartExam request xong thì nó cần 1 ExamResult và Mapper nữa.
+ Lấy thông tin của exam, của mapper,..
+ Lấy exam theo userId, sau đó lấy exam hiện tại ra, new 1 examresult ra. Trong trường hợp cái startDate nó sẽ (cho startDate là giờ hiện tại luôn). Duration sẽ cắt ra phút + giấy => xử lý so sánh => Sinh ra được FinishDate. Từ finishDate sẽ biết được. Khởi tạo tổng số câu hỏi đúng. Trong examresult mình cũng thêm 1 bản ghi nữa
+
+* SubmitQuestion
+Tức là chúng ta trả lời từng câu hỏi
+Đây là command để submit kết quả của từng câu hỏi 1 khi mà người dùng chọn nextquestion. Truyền lên thì chúng ta sẽ cần: ExamResultId, QuestionId, AnswerIds
+- SubmitQuestionCommandHandler: chri lưu vào csdl trong bảng exam_result _examResultRepository:
+SubmitQuestion này chúng ta sẽ lấy ra result detail, kiểm tra xem có câu hỏi nào đúng câu hỏi đấy không, có câu hỏi chúng ta update kết quả người dùng lựa chọn thôi.
+
+* Trong phần mapping MappingProfile.cs
+ cũng thêm mới 3 phần:
+  CreateMap<ExamResult, ExamResultDto>().ReverseMap();
+  CreateMap<QuestionResult, QuestionResultDto>().ReverseMap();
+  CreateMap<AnswerResult, AnswerResultDto>().ReverseMap();
+ <>xong Command<>
+ 
+****** Đến Query ******
+*** V1 > ExamResults > GetExamResultById
+- GetExamResultById
+- GetExamResultByIdQueryHandler
+Viết mô hình này thì chúng ta code hơi nhiều 1 chút nhưng được cái luôn luôn mở rộng chứ không sửa file cũ, hầu như là như vậy. Code của function nào ra function đấy, nó sẽ tách ra từng file riêng, mất nhiều file nhưng nó lại rất là tường minh. Khi hệ thống trở nên nhiều code cách này rất hay.
+
+*** Trong Domain
+** AggregateModels
+ > ExamResult:
+	thêm 1 trường
+	[BsonElement("correctQuestionCount")]
+    public int CorrectQuestionCount { get; set; }
+- Trong IExamResultRepository:
+ có get detail => Task<ExamResult> GetDetails(string id);
+
+** Examination.Infrastructure.MongoDb
+- SeedWork
+- Repositories
+
+<><>Xong Back end<><>
+
+<><><>Frontend<><><>
+***  WebApps
+** Pages
+* ExamDetails.cshtml
+- sửa onGet:
+ Lấy ra thông tin của examID
+- onPost
+Trong onPost, tức là sau khi chúng ta get ra rồi thì chúng ta sẽ bấm "take exam" thì nó có cái: bắt đầu nó sẽ dùng start exam để mà bắt đầu làm bài thì chúng ta sẽ có phương thức start exam. Start exam xong nếu thành công thì nó sẽ sang trang Take exam
+- Bây giờ chúng ta cần có 1 exam service
+* Exam service sẽ có phương thức Start Exam: IExamResultService.cs:
+- IExamResultService.cs
+	Task<ApiResult<ExamResultDto>> GetExamResultByIdAsync(string id);
+	Task<ApiResult<ExamResultDto>> NextQuestionAsync(NextQuestionRequest request);
+	Task<ApiResult<bool>> SkipExamAsync(SkipExamRequest request);
+	Task<ApiResult<ExamResultDto>> FinishExamAsync(FinishExamRequest request);
+	Task<ApiResult<ExamResultDto>> StartExamAsync(StartExamRequest request);
+=> Xong nhớ add vào file start up
+- Thêm implement cho  IExamResultService.cs là ExamResultService
+ + Viết Baseservice dùng chung
+ 
+* Trong Pages > Exams > ExamDetails, ExamDetails.cshtml.cs
+Dùng thêm IExamResultService 
+- Sửa OnGet, OnPost
+
+** Sửa mỗi lần token hết hạn (exprid): thì chúng ta sẽ cho nó redirect sang trang Identity xong chúng ta lại quay về.
+- Trong file PortalApp > start up
+ Trong add cookie mình có 1 cái options event: kiểm tra CookieAuthenticationEvents, nếu mà nó chứa ".Token.expires_at" và ngày hết hạn nhở hơn hiện tại rồi thì chúng ta renew, redirect. Khi nó kiểm tra, nó tự động lấy lại cho chúng ta, ko bị timeout nữa
+ if (context.Properties.Items.ContainsKey(".Token.expires_at"))
+	{
+		var expire = DateTime.Parse(context.Properties.Items[".Token.expires_at"]);
+		if (expire < DateTime.Now)
+		{
+			context.ShouldRenew = true;
+			context.RejectPrincipal();
+		}
+	}
+- Thêm class css custom riêng
+** sửa Baseservice:
+Thêm 1 đoạn để ko phân biệt chữ hoa chữ thường:
+return await client.GetFromJsonAsync<ApiResult<T>>(url, new JsonSerializerOptions()
+{
+	PropertyNameCaseInsensitive = true
+});
+
+* Sửa lại ExamDetails.cshtml
+- Cách viết href, cách link url
+
+* Tạo ra 1 trang TakeExam.cshtml
+chính là trang chúng ta đã có template student-quiz: Copy giao diện sang, bỏ phần CTA đi. Xử lý động
+- Xử lý động (phần html TakeExam.cshtml)
+	+ Đổi route,...
+
+- Phần code TakeExam.cshtml.cs (đang để  [IgnoreAntiforgeryToken(Order = 1001)])
+ + OnGetAsync: lấy ra danh sách question
+ + lấy dữ liệu ở ngoài đang dùng ajax
+ 
+- Đặt css mà thêm riêng ở trang Shared> _Layout.cshtml
+- Đổi đường dẫn của image đang bị sai: thêm dấu /
+
+* Tạo ra trang ExamResult.cshtml: chưa có gì
+
+** Trong phần wwwroot:
+Thêm thư mục pages: tương ứng với mỗi page sẽ có 1 css/js riêng
+- Thêm file take_exam.js: Nội dung file này là viết theo dạng hướng đối tượng, tức là mỗi phương thức thì mình sẽ sinh ra 1 method. Có 1 hàm init, 1 hàm registerEvents, 1 hàm initTimer: mình dùng timer từ bên ngoài truyền vào, remainingTime là bao nhiêu, có Restricted không, nếu Restricted thì mình sẽ bật đồng hồ đếm ngược và gắn vào countdown (#countdown) trong exam này.
+InitTimer xong sẽ loadQuestion theo Index: Question của chúng ta từ take exam sẽ bắn 1 cái hidden field. hidden Field để làm gì: để chứa những thông tin mà bên html cần, gồm có: remainingTime, IsTimeRestricted (đề thi này có giới hạn thời gian không), vị trí câu hỏi hiện tại là gì, vị trí câu hỏi cuối cùng là gì, mã đề thi là gì, mã kết quả là gì, mà câu hỏi hiện tại là gì => Dựa vào những thông tin này thì exam mới đọc được những thông tin này.
+
+*** Chúng ý nhúng file, ko là sau này lỗi ko biết check
+
+** Chú ý lỗi: Đang câu hỏi chuyển qua lại nhưng ko lưu câu đã chọn: có thể do tên field bị sai,..
+
+
+*** AdminApp
+** ItemDetails.razor:
+sửa lại Duration (mm:ss)
+ <MudTextField  Label="Duration (mm:ss)" Required="true" RequiredError="Number minutes is required"
+                                 @bind-Value="model.Duration" For="@(() => model.Duration)" />
+** NewItem.razor
+sửa tương tự
+
+
+
+ 
+ 
