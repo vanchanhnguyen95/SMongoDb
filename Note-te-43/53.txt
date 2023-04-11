@@ -1,0 +1,20 @@
+Bài 53: Tổng kết
+- Identity
+- Build 1 project với DDD
+1. Build Identity Server SSO Service
+2. Build Domain Driven Design project
+3. Using Mongo DB
+4. Build REST API
+5. Build SPA with Blazor WebAssembly
+6. Using CQRS Pattern
+7. SSO with Identity Server
+8. Using ASP.NET Core Razor Pages
+9. Build Exam application
+10. Deploy application to IIS
+
+What will next?
+1. Separate solution to multiples repositories
+2. Implement CI/CD  with Jenkins
+3. Building API Gateway
+4. Add more micro-services
+5. Implement Message-Queue for internal communication
