@@ -1,0 +1,27 @@
+Bài 51: Xem lịch sử thi trong Admin
+*** Quản lý exam resuld cho admin
+*** Xây dựng thêm api cho admin
+Xây dựng thêm api cho exam result như question
+
+*** Sửa Examination.Domain
+* Sửa IExamResultRepository.cs
+
+*** Examination.Infrastructure.MongoDb
+Repositories
+- Tìm kiếm exam chứa nội dung
+- exam này có exam Id chúng ta cũng có thể tìm theo email
+- Tức là như này: Email hay là những thông tin: username, name, thông tin của user thì nó để bên service Identity (db Identity), không liên quan đến con này (MongoDb). Như vậy 1 list ExamResult chúng ta có rất nhiều user nên không thể nào join thẳng sang bên kia được vì nó sẽ chậm => nên chọn giải pháp là lưu thừa, vì thực ra email. fullname sửa rất ít, thường người ta sẽ: khi update thông tin ở bên Identity thì người ta sẽ bắn 1 event và bên này sẽ nhận được: thường bắn trực tiếp hoặc gián tiếp:  trực tiếp thì bắn qua api, bên exam sẽ viết ra 1 api để đón hoặc là mình xây dựng 1 message queue/ rabbit queue để nhận thông tin để cập nhật.
+- Nhớ phải check null
+
+BuildingBlocks/Examination.Shared
+- Thêm trường vào ExamResult thì cũng sửa ở cả Dtos (BuildingBlocks/Examination.Shared)
+- Thêm ExamResultSearch
+
+*** Sửa Examination.Application
+
+**** Front end
+AdminApp
+- Xây dựng phần service
+- Xây dựng phần UI
+- Thông tin của question, Exam
+- Nhớ sửa file start up, đăng ký các service đã tạo
