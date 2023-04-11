@@ -1,0 +1,12 @@
+Bài 2: Tổng quan về CI/CD
+- CI&CD Overview
+- Continuous Integration: tích hợp liên tục
+- Continuous Delivery & Continuous Deployment: Bàn giao liên tục và triển khai liên tục
+- Deployment Strategies
+
+- Giúp cho việc triển khai, tích hợp code, deployment 1 cách liên tục ko mất nhiều công sức người dùng => Công việc này thuộc của devops.
+- Giúp tìm lỗi nhanh nhất, giúp kiểm tra được ngay lập tức hơn là lúc deployment
+
+* Ưu điểm: các version có thể chạy song song, full traffic
+* Nhược: chúng ta phải có 1 load balancing rất ngon
+* Shadow: version 2 có thể nhận đc song song nhưng set up phức tạp
