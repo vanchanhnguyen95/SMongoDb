@@ -1,0 +1,30 @@
+Bài 3: Giới thiệu về Jenkins
+
+*****
+What is a Jenkins pipeline?
+Jenkins là 1 hệ thống giúp chúng ta xây dựng 1 hệ thống, 1 quy trình tự động làm 1 việc gì đấy.
+Jenkins hỗ trợ 2 cơ chế: free style - pipeline
+
+- Ở đây dùng pipeline. Đơn giản hiểu pipeline là dùng code, free style là bằng tay
+What is a Jenkins file?
+Pipeline concepts
+
+
+*** Ưu điểm của Freestyle project
+- config bằng UI hoàn toàn, dễ làm nhưng khó quản lý
+
+*** Ưu điểm của Pipeline project
+- có thể control version được, ko phải viết lại bằng tay. Ví dụ mỗi lần chúng ta di chuyển pipeline ra chỗ khác hoặc là chúng ta backup lại mà chúng ta ko biết phải làm gì.
+
+- Jenkins hỗ trợ rất nhiều thứ: với git, các external, cài plugin kiểm tra code các thứ
+
+*** Jenkins pipeline là gì?
+- là 1 tập các câu lệnh mà giúp cho phần mềm lấy code từ version control sau đó build > rồi chạy unit test > tự động publish luôn.
+- Jenkins pipeline nó giúp chúng ta tạo CI/CD bằng code
+- Lưu trong Jenkinsfile
+- pipeline này được viết bằng ngôn ngữ Declarative, nó là grovevi, nó se được lưu trong Jenkinsfile. Nó sẽ chia ra thành nhiều stages. Trong 1 stages thì nó có test, deploy đấy... Trong mỗi stages có các step. Mỗi step này chúng ta có thể chạy câu lệnh bằng power shall hoặc npm, node js đều đc.
+
+- Jenkins làm nhiệm vụ lấy code mới nhất về build và nó được lưu ..
+Chúng ta có lưu lại bản cũ ko? có run unit test ko? có đếm cover rage ko? có check code với sonaqube ko?..
+Chúng ta phải nắm được dự án có bao nhiêu quy trình thì mới có CI/CD riêng
+
