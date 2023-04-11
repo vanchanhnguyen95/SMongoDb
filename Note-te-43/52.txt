@@ -1,0 +1,54 @@
+Bài 52: Triển khai ứng dụng lên IIS Windows
+Cách deploy toàn bộ hệ thống lên window server, trên window 10 iis
+Hướng phát triển: tách ra mỗi 1 repo là 1 service riêng, CI/CD riêng nhau. 1 cụm identity riêng, Cum admin riêng, cụm portal riêng. CI/CD sẽ riêng nhau ra, ko bị ảnh hưởng, Code khi debug cũng không ảnh hưởng đến nhau.
+- Sẽ tách ra thành microsevice để phát triển. Khi mà có nhiều service thì chúng ta xây dựng 1 apiGetway. apiGetway dễ nhất là dùng Ocelot, chỉ config bằng json thôi. Tác dụng của apiGetway: nó đứng ra tổng hợp các api đầu ra cho nó, để nó tiếp nhận request và nó có thể giúp chúng ta retry request, triển khai các service, giúp chúng ta retry đc nếu bị fail, detect được spam các thứ. Và khi chúng ta có nhiều đường dẫn của api bên trong thì chúng ta muốn gộp chung lại thành 1 domain thì chúng ta sử dụng ApiGateWay
+- Làm việc giữa các microsevice lẫn nhau thì chúng ta có 2 cách: trực tiếp, gián tiếp. Trực tiếp thì chúng ta có thể gọi ví dụ thằng exam này gọi thẳng sang identity service, gọi thẳng sang api, admin api để lấy thông tin của user để quản lý luôn ở trong exam hoặc là chúng ta xây dựng ApiGateWay để chọc vào cả 2 con api này để mà đưa ra cho thằng admin, portal dùng. Gián tiếp thì chúng ta dùng queue: lúc này chúng ta sẽ publish các event, chúng ta cũng có cqrs cũng có mediat để chúng ta publish event rồi, chúng ta giờ chỉ thêm 1 system, 1 cơ chế gọi là intergration thôi
+
+- Update lại version MudBlazor để deploy ko lỗi:
+   <PackageReference Include="MudBlazor" Version="5.1.0" />
+    <PackageReference Include="MudBlazor.ThemeManager" Version="1.0.5" />
+- Sau khi update thư viện đổi 1 số thứ, remove những thứ ko còn được sử dụng
+- Trong các file program.cs của các project phải thêm dòng này mới chạy trên IIS được:
+webBuilder.UseIISIntegration();
+
+- Trong Examination.API
++ Trong file startup: cho swagger ko hoạt động trên môi trường Prodution
+
+- Cài SSMS quản lý SQL server:
++ Phải vào Security: Enable : SQL Server and Windows Authantication  mode lên
+=> Đổi password tài khoản sa, restart lại mới vào đc
++ Vào service.sc kiểm tra xem sqlserver, mongodb có đang chạy không
+
+- Trỏ domain vào file host của windows
+- publish từng cái một
+- Trên IIS publish lên thì sql phải để có 1 tài khoản, ko thể để trusted đc
+
+***** Publish Examination.API trước
+- Đang bị lỗi ko chạy đc https:
+cần fix, chạy lệnh trên powershell để gen ra: tạo certificate => add vào MMC: cho nó trusted
+sau khi trusted xong thì mình export nó ra 1 file PFX => Vào IIS import certificate vào => Vào SSl setting: chọn accept => restart iis, tắt đi bật lại. Nó bị fail thì kiểm tra sửa lại fiel startup, publish lại xem lỗi gì
+
+***** Publish Identity.STS.Identity
+- chạy lệnh trên powershell để gen ra: tạo certificate => trusted nó => sau khi trusted xong export nó => 
+- Lỗi 500 thì lúc chúng ta đẩy ra ngoài thì domain của nó phải đẩy sang cái UAT mới được => Sửa lại connectstring.
+
+*** Publish Identity.Admin
+trong lúc chờ cũng tạo certificate ... 
+- Lỗi 500 thường là: 1 là chưa accept, 2 là chưa connect đc sql
+- Chỉnh lại thông tin bảng Clients,[ClientRedirectUris], [ClientPostLogoutRedirectUris]   những bảng có liên quan,...
+
+*** Publish AdminApp
+trong lúc chờ cũng tạo certificate ... 
+- Chỉnh lại config: trỏ đến "BackendApiUrl": "https://exam-api.local",  "IdentityServerUrl": "https://identity-sts.local",
+- Sửa lại bảng [ClientCorsOrigins]
+
+*** Publish PortalApp
+trong lúc chờ cũng tạo certificate ... 
+- Chỉnh lại config:
+- Chỉnh lại logs:
+
+***** Fix for bypass SSL connecttion validate
+Sửa trong file startup
+Nếu có ssl thật thì ko phải bypass kiểu này
+.....
+Chỉnh nhiều lỗi do config
