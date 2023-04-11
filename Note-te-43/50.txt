@@ -1,0 +1,57 @@
+Bài 50: Xem lịch sử thi của User
+**** Back end
+ExamResultAggregate
+Khi làm mới focus phần backend trước.
+Examination.Domain
+- Examination.Domain: Trong exam result thêm 1 api nữa là History
+Examination.Infrastructure.MongoDb
+- Sửa trong repository: ExamResultRepository.cs,...
+- Order by theo finishDate: ai là muộn cho lên trên
+Examination.Application
+- Commands
+- Queries
+ V1
+ ExamResults > GetExamResultsByUserIdPaging
+Examination.API
+
+**** Front end
+*** WebApps
+** PortalApp
+* Pages
+- Profile
+ExamHistories
+- Sửa tương tự phần ExamResult, clone sang
+- Hàm OnGetAsync lấy dữ liệu ra
+- Phần phân trang
+- Sửa phân trang ngoài front end
+- Sửa footer:
+- Sửa dùng code động
+*** Thêm trường ExamTitle để đỡ phải join, MongoDb không nên dùng join
+- Sửa trong BuildingBlocks > Examination.Shared> ExamResultDto
+- Sửa trong cả Domain: Services> Examination.Domain>  AggregateModels
+ Sửa theo Commands, Queries
+
+- Tổng số câu hỏi là bao nhiêu? Số câu hỏi trả lời đúng?
+
+*** Chú ý sửa lỗi url
+- Sửa layout front end đang lấy theo main nên thừa
+
+- Check lỗi: có thể comment cái code layout đi xem có không -> Nếu bỏ ko có thì chứng tỏ do Profile layout
+
+**** Chú ý: Nguyễn nhân RenderSession trong layout này (_Layout.cshtml) : nếu chúng ta để async thì phải có await, nếu có async mà không có await thì nó ra cái html string đấy ngay
+
+*** Lỗi cần phải để scriprys trong file _MainLayout.cshtml mới được: Tức là chúng ta sử dụng scripts này tạo ra 1 session khác để thằng con của nó dùng vì chúng ta có 2 cấp. Đương nhiên trang nào ko dùng session thì không sao nhưng ví dụ trang TakeExam nó cần nhúng javascript thì nó chết.
+	@{
+		Layout = "_Layout";
+	}
+	@section Scripts{
+		@RenderSection("Scripts", required: false)
+	}
+	<partial name="_Header" />
+	@RenderBody()
+	<partial name="_Footer" />
+	
+- layout ExamHistories
+trong trường hợp nó bị chưa có giá trị, tức là nó làm rồi nhưng ko làm gì cả,... xử lý hiển thị giao diện
+	
+
