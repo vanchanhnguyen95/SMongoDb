@@ -1,0 +1,2 @@
+Bài 1: Giới thiệu tổng quan
+Mục tiêu: triển khai được project sử dụng tool Jenkins
