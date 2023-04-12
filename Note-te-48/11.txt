@@ -1,0 +1,14 @@
+Bài 11: Publish ứng dụng .NET Core
+*** Lệnh build và lệnh publish khác nhau gì?
+build là chỉ build thành công thôi còn publish thì đẩy output nó ra
+
+***
+Nên chạy thử source code trước để xem lệnh publish như nào
+- dotnet publish AdminApp/AdminApp.csproj -o "Publish"
+- dotnet publish AdminApp/AdminApp.csproj -o "Publish" /p:Enviroment=UAT
+- dotnet publish AdminApp/AdminApp.csproj -o "Publish" /p:Enviroment=UAT -c Release -f net5.0 -r win10-x64
+
+Chỉ cần copy câu lệnh lên jenkins là xong: tuiwcs là dưới chạy được là trên chạy được
+- Chú ý trên jenkins cũng phải cả git nữa, ... chú ý cài đủ các plugins
+
+Sau khi publish xong thì chúng ta sẽ có những cái package sau khi publish xong
