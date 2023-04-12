@@ -1,0 +1,12 @@
+Bài 6: Tách source code ra nhiều Repository
+*** Sử dụng project:
+- Ứng dụng trắc nghiệm sử dụng: mongodb, DDD, cqrs, Asp net 5, rest api. Phần Admin thì dùng blazor web assembly, Phần portal bên ngoài thì dùng razor page thuần.
+- Ứng dụng có khoảng 4 app
+- Hiện tại source code đang gộp chung => chúng ta tách riêng ra thành nhiều solution nhỏ:
+ 1 cụm Exam 1 service, Cụm AdminApp, Cụm PortalApp, Cụm Identity
+- Không dùng git nữa mà dùng azure devop
+
+**** Trên azure devop
+- Tạo 4 project
+- Clone từng repo về 1
+- Nhớ thêm gitignore
