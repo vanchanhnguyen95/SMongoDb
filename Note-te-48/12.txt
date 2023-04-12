@@ -1,0 +1,12 @@
+Bài 12: Deploy ứng dụng lên IIS
+****
+Để Deploy lên IIS thì chúng ta cần phải enable cái Pools
+Nếu dùng entityframework thì publish trực tiếp lên, copy file nhưng nếu dùng ASP .Net Core thì Pools này khi nó còn start thì sẽ ko copy được mà chúng ta sẽ phải stop nó đi và chúng ta copy lên. Ở đây chúng ta phải Stop rồi mới copy này thì chúng ta phải thao tác với Pools của IIS.
+Dùng câu lệnh powershell học cách làm việc với nó:
+
+****
+1. Vào trang chrome://net-internals/#hsts > Gõ localhost rồi delete đi > thì ở đây chúng ta sẽ vào được localhost mà không bị redirect
+2. Khi chạy bị lỗi thì phải xem log lỗi, xem nếu do authen thì vào git> vào phần repos > Clone> generate credentials ra
+3. Vào config > Là bước deploy
+- Vào config
+
