@@ -1,0 +1,17 @@
+Bài 4: Cài đặt Jenkins trên Windows
+https://www.jenkins.io/
+- Mặc định cổng là: https://localhost:8080/
+- Tuy nhiển để cài được phải vào đọc doc phần install cho windows:
+ + cài java 11 mới hỗ trợ:
+ https://jdk.java.net/archive/
+ + Vào file .msi cài: port mặc định là 8080
+ + vào service kiểm tra jenkins đang chạy là được
+ + Khi chạy được rồi thì vào link https://localhost:8080/
+ + Lần đầu tiên phải unlock nó: http://localhost:8080/login?from=%2F
+  unlock thì cần có 1 password nằm trong thư mục: C:\ProgramData\Jenkins\.jenkins\secrets\initialAdminPassword
+   Ctrl + R: copy path vào > lấy đc password
+ + Cài đặt những cái suggested nào hoặc plugins nào
+  Chọn cài suggested trước: đợi nó cài hết
+  Đây là những plugins giúp jenkins làm việc được, ví dụ những cái liên quan đến: gửi mail, pipeline, làm việc với git, làm việc với source code branch, ssh, ..
+  + sàu khi cài xong thì cài: Create First Admin User
+   
