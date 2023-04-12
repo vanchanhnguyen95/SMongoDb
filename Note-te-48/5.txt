@@ -1,0 +1,17 @@
+Bài 5: Giới thiệu giao diện Jenkins
+*** Job
+Job là những cái task những cái tác vụ được định nghĩa ra theo ý thích của mình, tức là mình custom chạy theo những bước như nào. Có 2 loại chính là: Freestyle project, pipeline. Ở đây chủ yếu dùng pipeline. Là những long running activice. Jenkins này nó chạy được dạng master flame: tức là các bạn khi có nhiều task để build thì có thể chia ra 1 con chính và nhiều con phụ: nó có thể tự chia ra, mình gắn bao nhiêu flap đều được. Nếu chúng ta có quá nhiều job thì chúng ta có thể chia ra nhiều server và do 1 con chính quản lý. Còn Freestyle do thao tác trên UI
+
+****
+- Có thể tạo ra nhiều User
+- Xem lịch sử build
+- Phần chính hay dùng nhất là Manage Jenkins: để cấu hình toàn bộ hệ thống
+
+*** My Views:
+là những view mà chúng ta có nhiều những cái job, mỗi 1 dự án hoặc 1 team chúng ta tạo ra 1 view là 1 group
+
+*** Manage Jenkins
+- sẽ có những config về hệ thống, config về global tool
+
+*** Restart
+trong phần jenkins thì đôi lúc chúng ta cài chúng ta cần restart theo link: http://localhost:8080/restart hoặc vào thẳng service restart
