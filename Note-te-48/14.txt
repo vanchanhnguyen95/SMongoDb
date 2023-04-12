@@ -1,0 +1,2 @@
+Bài 14: Nhân bản tương tự pipeline cho App khác
+Có chỗ điền  Copy from: chọn project đã tồn tại
