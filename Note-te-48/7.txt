@@ -1,0 +1,3 @@
+Bài 7: Tạo Jenkins Pipeline Job đầu tiên
+
+** Muốn xem thực tế chạy như nào thì vào Console Output
