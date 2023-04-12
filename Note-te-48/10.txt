@@ -1,0 +1,23 @@
+Bài 10: Sử dụng lệnh NodeJS trong Pipeline
+
+*** Làm sao để chạy được lệnh npm
+- Vào Plugin Manager > Cài plugin node js
+- Sau khi cài xong vào http://localhost:8080/manage/configureTools/
+ + Cài thêm nodejs vào
+ 
+**** Test
+pipeline {
+    agent any
+
+    stages {
+        stage('Get lastest code') {
+            steps {
+                powershell '''
+                    npm -v
+                '''
+            }
+        }
+        
+    }
+}
+
