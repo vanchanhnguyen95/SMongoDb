@@ -1,0 +1,91 @@
+Bài 13: Quản lý và sử dụng setting trong Jenkins
+* Quan trọng học hiểu cách làm > Lúc làm đọc log khắc phục lỗi
+
+*** Replace file setting với jenkins
+
+*** Vào http://localhost:8080/manage/configure
+** thêm 2 biến nữa: cú pháp nên để chữ hoa
+BACKEND_API_URL, IDENTITY_SERVER_URL
+
+** sửa lại file configure
+Chú ý ko cho dùng gạch ngang mà dùng gạch dưới
+
+pipeline {
+    agent any
+
+    environment{
+        DEPLOY_PATH = "D:\\Project\\te-48\\Note-te-48"
+    }
+
+    stages {
+        stage('Checkout project') {
+            steps {
+                git branch : "${env:Branch_Name}",
+                credentialsId: "${env:GIT_CRED_ID}",
+                url: "https://bav1@dev.azure.com/bav1/AdminApp/_git/AdminApp"
+            }
+            post {
+                failure {
+                    echo 'checkout project FAILURE'
+                }
+            }
+        }
+        
+        stage('Build project') {
+            steps {
+                powershell '''
+                    $jsonPath = "AdminApp/wwwroot/appsettings.json"
+                    $s = Get-Content $jsonPath -Raw
+                    $s = $s | convertFrom-Json
+                    
+                    $s.BackendApiUrl = $env:BACKEND_API_URL
+                    $s.IdentityServerConfig.IdentityServerUrl = $env:IDENTITY_SERVER_URL
+                    $s | ConvertTo.Json -Depth 9 | Set-Content $jsonPath
+                    dotnet build AdminApp.sln
+                '''
+            }
+        }
+        
+        stage('Publish project') {
+            steps {
+                powershell '''
+                    dotnet publish AdminApp/AdminApp.csproj -o "Publish" /p:Enviroment=UAT -c Release -f net5.0 -r win10-x64
+                '''
+            }
+            
+            post {
+                failure {
+                    echo 'Publish project FAILURE'
+                }
+            }
+        }
+        
+         stage('Deploy to IIS') {
+            steps {
+                powershell '''
+                    $DeploymentPool = "admin.local"
+                    Stop-WebAppPool -Name $DeploymentPool
+                    Stop-Website -Name $DeploymentPool
+                    
+                    Start-Sleep -Second 5
+                    
+                    robocopy "Publish" "${env:DEPLOY_PATH}" /e
+                    
+                    Start-WebAppPool -Name $DeploymentPool
+                    Start-Website -Name $DeploymentPool
+                    
+                    exit 0
+                '''
+            }
+            
+            post {
+                failure {
+                    echo 'Deploy to IIS FAILURE'
+                }
+            }
+        }
+        
+    }
+
+}
+
