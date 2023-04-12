@@ -1,0 +1,24 @@
+Bài 8: Kết nối đến Git để lấy source code
+- Tạo 1 user và cho phép nó truy cập vào các repos mà mình muốn. Ví dụ tạo user và jenkins nhưng chỉ cho lấy code
+
+** Cách build với parameter: Chỉnh trong configure
+This project is parameterized?
+
+** Tạo biến môi trường trong này:
+http://localhost:8080/manage/configure
+
+
+** Pipeline
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout project') {
+            steps {
+                git branch : "${env:Branch_Name}",
+                credentialsId: "${env:GIT_CRED_ID}",
+                url: "https://bav1@dev.azure.com/bav1/AdminApp/_git/AdminApp"
+            }
+        }
+    }
+}
