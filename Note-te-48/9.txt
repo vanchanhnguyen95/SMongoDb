@@ -1,0 +1,38 @@
+Bài 9: Build ứng dụng đầu tiên với Jenkins Pipeline
+**** Source code đã lấy về thì nó nằm ở đâu ??
+- Vào Console Output xem:
+Running on Jenkins in C:\ProgramData\Jenkins\.jenkins\workspace\UAT-AdminApp
+
+*** post: thực hiện ngay sau khi stage đấy hoàn thành
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout project') {
+            steps {
+                git branch : "${env:Branch_Name}",
+                credentialsId: "${env:GIT_CRED_ID}",
+                url: "https://bav1@dev.azure.com/bav1/AdminApp/_git/AdminApp"
+            }
+            post {
+                failure {
+                    echo 'checkout project FAILURE'
+                }
+            }
+        }
+        
+         stage('Build project') {
+            steps {
+                powershell '''
+                    dotnet build AdminApp.sln
+                '''
+            }
+        }
+        
+    }
+}
+
+
+*** Build ở project dotnet khác project node js
+
