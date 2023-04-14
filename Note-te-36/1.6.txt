@@ -1,0 +1,28 @@
+Bài 1.6: Identity Cookie
+- Cookie được set khi user login thành công
+
+**** Identity Cookie hoạt động ra sao? Tại sao ta cần nó như vậy
+Thông thường thì webserver sẽ phục vụ đồng thời 1 số lượng conferren user nhất định.
+Cookie là 1 cách để chúng phép servẻ của chúng ta nhận biết được rằng request nào
+đến từ user nào. Khi mà chúng ta chực hiện action sign in cho user, hệ thống của
+chúng ta sẽ lưu tất cả thông tin của user trong cookie bao gồm cả claim. Sau đó,
+những thông tin này sẽ được mã hóa bằng key mà chỉ server side của application
+chúng ta có. Để cần giải mã những thông tin của key, mình sẽ cần 1 key y hệt
+như vậy => Đó là lý do tại sao mặc dù chúng ta có thể nhìn thấy thông tin của
+cookie trên trình duyệt nhưng ko thể giải mã đc nó. Cookie cũng sẽ được gửi tự
+động trong các request từ client đến server, khi mà server nhận được cookie gửi lên
+từ phía client. Server sẽ giải mã được cookie và tái cấu trúc lại thông tin của
+user ở trong cookie. Việc mã hóa và giải mã được support bởi thư viện có tên là:
+ASP.Net Core Data Protection. Thư viện này được tự động thêm vào khi mà chúng ta
+sử dụng cookie authentication scheme và chúng ta có khai báo trong file start up.
+Thư viện này sẽ chịu trách nhiệm lưu khi mà dùng cho việc map khóa vào để giải mã
+1 cách an toàn nhất. Ngoài ra thì key cũng sẽ được thay đổi định kỳ.
+
+- Việc sử dụng Identity Cookie tồn tại 1 số vấn đề:
+ví dụ nếu 1 nhân viên trong cty của bạn đã bị đuổi việc thì trước đo người nhân viên 
+đã login vào hệ thống và có chọn option là [Remember me] vào đây, điều đó có nghĩ là
+lần sau người nhân viên này sẽ vẫn có thể truy cập vào hệ thống mà ko cần phải nhập
+lại username/password nữa vì cookie trên trình duyệt của họ vẫn còn hợp lệ với server.
+Vậy thì chúng ta phải giải quyết>> Sửa trong file startup: bằng cách gọi đến CookieAuthenticationEvents>
+Thì trong function OnValidatePrincipal Chúng ta đặt thêm logic là thêm cái Claim: CompanyEnđate chẳng hạn,
+Nêu ngày CompanyEnđate nhỏ hơn ngày hiện tại thì chúng ta RejectPrincipal()
