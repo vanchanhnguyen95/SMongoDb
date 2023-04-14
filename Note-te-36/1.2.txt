@@ -1,0 +1,12 @@
+Bài 1.2: Tìm hiểu về Authentication và Authorization
+*** Authentication
+- là cơ chế để xác minh thông tin của 1 người nào đó
+*** Trong 1 ứng dụng asp .net core có 3 cách để triển khai việc Authentication
+1. Cookie Authentication 
+2. Identity Framework
+- Do microsoft cung cấp
+3. Identity Provider
+- Tự xây dựng 1 Identity Provider
+*** Authentication là gì?
+- là cơ chế để veryfie những việc bạn có thể làm, những nơi bạn có thể truy cập.
+Authentication chỉ được thực thi khi mà Authentication thành công
