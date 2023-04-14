@@ -1,0 +1,24 @@
+Bài 1.5: Đăng nhập và đăng xuất
+	Tạo ra trang login để cho phép user có thể nhập được username/password của họ.
+	Nếu user nhập đúng username/password thì chúng ta sẽ chuyển họ đến trang mà họ sử dụng.
+1. Tạo 1 accountcontroller cho các action cho viêc login, logout.
+-  Nhớ rằng phải set AllowAnonymous cho login actionKhi chuyển sang trang login
+- Tạo form login đơn giản
+- Trong account controller ta phải tạo 1 action post Login:
+action này sẽ cache những thông tin mà user submit lên để compare với username/password
+mà chúng ta lưu trong db. Việc kiểm tra những thông tin username/password này sẽ được
+thực hiện trong user repository và được đăng ký ở trong accountcontroller thông qua constructor.
+Chúng ta cùng vào xem
+- Trường hợp trong hệ thống tìm được thông tin user trong DB, bước tiếp theo là ta sẽ tạo 1 claim.
+Claim là 1 object dạng key-value, ở những phần đầu tiên khi giải thích về authen đã nói về claim.
+Trong danh sách claim sẽ có 3 thông tin: NameIDentifier, Name, Role. NameIDentifier là userId hay subjectId.
+Ngoài ra còn có 1 none stand claim là "FavoriteColor, sau đó chúng ta sẽ gán các danh sách claim này
+vào với identity thông qua claim identity object, ở đây ra cũng phải chỉ rõ là authentication scheme nào,
+nó map với claim ta vừa tạo.1 hệ thống có thể có rất nhiều authentication scheme khác nhau.
+Bước cuối cùng: trước khi chúng ta thực sự thực hiện cái việc sign in thì chúng ta phải gán cái claim
+identity mà chúng ta vừa tạo vào 1 ClaimsPrincipal.
+- ClaimsPrincipal là 1 object đại diện cho user và ClaimsIdentity sẽ đại diện cho các authentication scheme khác nhau.
+Mỗi 1 ClaimsIdentity sẽ có các danh sách claim của nó.
+- Tiếp theo cần phải gọi đến HttpContext.SignInAsync
+- Trước khi chuyển sang trang đăng nhập, ở đây mình có sử dụng LocalRedirect method thay cho những cái Redirect method 
+thông thường: lý do là nó sẽ đảm bảo rằng chúng ta chỉ redirect trogn trang của chúng ta thôi, chống hack
