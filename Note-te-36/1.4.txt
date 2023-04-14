@@ -1,0 +1,21 @@
+Bài 1.4: Sử dụng Cookie Authentication
+Sau khi có sample applicate thì giờ áp dụng cơ chế Authentication
+1. Mở file start up > đi đến ConfigureServices
+Thêm các Authentication sẽ dùng
+Nếu ko khai báo Authentication skin thì sẽ gặp lỗi
+-> Cần khai báo default Authentication
+
+*** ***
+phải chắc chắn rằng app.UseAuthentication(); middware này phải được gọi sau  app.UseRouting();
+ và trước app.UseAuthorization();. Thứ tự khai báo là 1 phần rất quan trọng
+
+*** Để sử dụng được Authentication chúng ta phải định nghĩa [Authorize] attribute vào controller
+
+*** Tại sao dùng [Authorize] attribute mà không phải là [Authuicate] attribute vì [Authorize] attribute 
+nó bao gồm cả Author cate rồi
+- Dùng [Allowanonymous] attribute với những controller mà chúng ta chó pháo ko cần phải đăng nhập
+- Ngoài ra chúng ta có thể sử dụng AuthorizeFilter"
+	services.AddControllersWithViews(o => o.Filters.Add(new AuthorizeFilter())); => đây là 1 global filter
+khi mà chúng ta đăng ký này đồng nghĩa tất cả controller trong hệ thông của chúng ta đăng nhập có thể 
+sử dụng được
+- Với [Authorize] chúng ta có thể specific các controller khác nhau
