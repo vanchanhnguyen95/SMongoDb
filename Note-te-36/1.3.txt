@@ -1,0 +1,26 @@
+Bài 1.3: Cài đặt mã nguồn
+*** Setting up
+Create sample application – Book Store.
+Use Entity Framework.
+
+***** Project
+*** Gồm những function cơ bản như:
+hiển thị sách trong db, cho crud
+*** Gồm 2 project chính
+1. BookStore.Data
+- đây là class library project
+2. BookStore.Web
+- là 1 mvc web application
+- là 1 project chịu trách nhiệm tương tác db, có sử dụng entity framework với mode là inmemorydb,
+ sử dụng mode này để tiết kiệm thời gian. Có thể ko chạy với mode này mà chạy trực tiếp với
+ Db cũng được
+- project này cần install nuget package là: 
+Microsoft.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.Inmemory
+- Khai báo 1 bookEntity: bao gồm những entity rất cơ bản như là:
+ Tên sách, giá sách, nhà xuất bản, tác giả> Sau đó khai báo entity này trogn Db conext.
+ Sau đó tạo ra 1 cái repository : Book repository. Khởi tạo dùng sẵn 3 cuốn sách.
+ Trong repository này có sẵn funtion: Thêm mới sách, lấy ra danh sách của tât cả đầu sách trong Db.
+ Lấy ra thông tin chi tiết của 1 cuốn sách,... Có thể làm thêm update, Delete.
+ Sau đó phải khai báo injection cho repository này, và khai báo việc sử dụng entity framework
+- Trong web application chỉ có 1 controller là bookcontroller thôi
