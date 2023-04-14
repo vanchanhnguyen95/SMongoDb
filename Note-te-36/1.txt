@@ -1,0 +1,3 @@
+Bài 1.1: Giới thiệu khóa học
+Beginning level of ASP.NET Core
+Understand about Entity Framework 
