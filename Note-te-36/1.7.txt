@@ -1,0 +1,40 @@
+Bài 1.7: Đăng nhập với External Identity Provider - Phần 1
+*******
+Trong thực tế, việc phải ghi nhớ username và password cho từng ứng dụng riêng lẻ và khác nhau
+là câu chuyện không hề đơn giản đối với khá nhiều người
+Đó là lý do tại sao ngày này nhiều ứng dụng cho phép sử dụng user user/password của bên thứ
+ba để đăng nhập vào hệ thống, chúng đc gọi là External Identity Provider.
+Trong .net core có thể liệt kê ra 1 số các External Identity Provider nổi tiếng như là:
+Google, facebook, Microsoft, Twitter. Trong asp .net core có rất nhiều nuget package mà có thể 
+support chúng ta trong việc intergrate với các external identity provider này.
+Ở đây ta dùng Google
+*********** Cơ chế hoạt động của External Identity Provider:
+Đầu tiên user truy cập vào hệ thống của chúng ta và lựa chọn login với option là sử dụng với 
+google account> Sau đó hệ thống chúng ta chuyển đến trang login google. Để chuyển sang trang login
+với google thành công, chúng ta cần phải đăng ký dịch vụ authentication của google trước đó.
+Sau khi đăng ký sử dụng dịch vụ authentication của Google thành công. Google sẽ cung cấp cho chúng ta
+thông tin về ClientId và Cliend secret, những thông tin này chúng ta cũng cần phải gửi kèm khi chúng ta
+chuyển tiếp user sang trang login của google, bởi vì google cần phải biết login đến từ ứng dụng nào và
+ứng dụng đó có quyền hay không. Sau khi user login thành công trên trang login của google, google sẽ
+tạo ra 1 token và gửi ngược trở lại application của chúng ta thông qua return url. Khi mà đăng ký sử 
+dụng dịch vụ authentication của google, chúng ta cũng sẽ phải báo cho google biết: return url đến 
+application của chúng ta là gì. Token được gửi từ google sẽ chứ toàn bộ các thông tin về: Claim của 
+google user, sau đó: server của chúng ta sẽ sử dụng các thông tin này để tạo identity cookie.
+Cách config google authentication: https://developers.google.com/identity/sign-in/web/sign-in, 
+https://console.developers.google.com/
+
+**** Vào trang cho phép chúng ta cấu hình google authentication thực hiện như sau:
+ https://console.developers.google.com/
+1. Tạo 1 project
+- Tạo xong google sẽ tự động generate cho chúng ta 1 Project ID
+2. Tạo mới Credentials cho project của chúng ta
+- Chúng ta sẽ tạo mới 1 OAuth client ID
+- Để tạo được 1 OAuth client ID chúng ta cần phải tạo 1 Consent screen trước: Chọn option external
+- Đối với việc cấu hình Consent screen: chúng ta cần cung cấp cấu hình các thông tin cơ bản như:
+Tên ứng dụng của chúng ta, Logo của ứng dụng của chúng ta, Add scope,.. các thông tin khác để mặc định google
+3. Sau khi tạo mới Consent screen thành công thì chúng ta quay lại tab  Credentials để tạo mới Credentials
+- Chọn Create Credentials > Oauth client ID> Chọn loại ứng dụng: Wep application; Tên:,
+ Chọn Authorized redirect URIs chính là url redirect quay về sau khi hoàn thanh user/password thành công.
+ => Là đường dẫn ứng dụng của chúng ta thôi: Chúng ta có thể có nhiều cái redirect url
+ Sau khi tạo mới thành công thì google sẽ gửi thông tin CliendId và secret cho chúng ta.
+Những thông tin này chúng ta sẽ dùng để sử dụng dịch vụ authentication của google.
