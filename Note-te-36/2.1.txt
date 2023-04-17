@@ -1,0 +1,23 @@
+Bài 2.1: Tạo mới dự án với Identity Framework
+
+1. What is Identity Framework?
+- đc xây dựng bởi Microsoft va tập trung vào Cookie Authentication
+- Cúng cấp rất nhiều helper class và UI giúp chúng ta rút ngắn thời
+ gian phát triển 1 Identity servẻ, chúng ta ko cần phải viết code để login logout
+ hay quản lý thông tin user bao gồm việc: đăng ký, thay đổi password, quên password,
+ mọi thứ đã được support và đóng gói bởi identity framework. Identity framework được
+ tích hợp với entity framework để chúng ta có thể lưu trữ thông tin user vào trong
+ database của chúng ta.
+- Dễ dàng cusomize theo ý của chúng ta
+- Cung cấp nhiều options mà chúng ta có thể dễ dàng tùy chỉnh theo ý mình, ví dụ:
+ cấu hình password polyce, cữ thường, ký tực đặc biệt
+- Support dễ dàng cho việc tích hợp External Authentication như Google, Microsoft
+
+2. Một số tính năng tiêu biểu mà Identity Framework mang đến:
+- Login and Logout
+- User registration
+- Third-parties login
+- Password management (change/forget password)
+- Account lockout
+- 2 factor authentication
+
