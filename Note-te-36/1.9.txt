@@ -1,0 +1,7 @@
+Bài 1.9: Đăng nhập với Google
+
+1. Ở trang Login.cshtml
+thêm action LoginWithGoogle trong account controller
+
+2. Trong controller Account
+- Nhờ xét AllowAnonymous cho method LoginWithGoogle
