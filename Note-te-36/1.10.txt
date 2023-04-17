@@ -1,0 +1,8 @@
+Bài 1.10: Tổng kết phần 1
+Part 1 - Summary
+- Authentication and Authorization 
+- Claim, Claim Identity, Claim Principal
+- Cookie
+- Scheme actions
+- External Authentication
+
