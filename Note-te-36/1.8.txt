@@ -1,0 +1,25 @@
+Bài 1.8: Đăng nhập với External Provider - Phần 2
+Phần trước đã lấy được Cliend ID và secret từ google
+Phần này sẽ implement Google authentication vào trong ứng dụng của chúng ta.
+1. Install nuget package
+Microsoft.AspNetCore.Authentication.Google
+- có thể install qua nuget hoặc dùng lệnh sau:
+dotnet add package  Microsoft.AspNetCore.Authentication.Google
+
+- Vào startup file:
+cung cấp thông tin clientID và Clientscreet:
+nên để các thông tin này vào userscret
+
+2. Scheme Actions: có 3 cái
+- Authenticate: liên quan đến cách ứng dụng của chúng ta tạo ra các claim như thế nào
+Với action này chúng ta cũng sử dụng Cookie authentication scheme
+- Challenge: action này sẽ xác định xem chuyện gì sẽ xảy ra nếu user sẽ truy cập vào 1 chức năng
+hoặc 1 resource cần đăng nhập
+Với action này chúng ta sử dụng Google authentication scheme để có thể redirect user đến trang
+đăng nhập của Google.
+- Forbid: action sẽ xác định xem chuyện gì sẽ xảy ra nếu user truy cập vào 1 chức năng hoặc
+một resource mà user không có quyền. Với action này chúng ta cũng sử dụng Cookie authentication.
+Mặc định user sẽ đc chuyển từ trang account/accessdeny
+
+Để có thể khai báo việc có thể việc có thể sử dụng authentication Scheme nào cho Scheme actions nào
+thì chúng ta cần phải khai báo thông qua action của: AddAuthentication method (strong file start up)
