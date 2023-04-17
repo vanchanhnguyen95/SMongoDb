@@ -1,0 +1,5 @@
+Bài 2.2: Khám phá Identity Framework
+*****************
+1. Cách Identity Framework tạo database cho chúng ta
+2. Database này gồm những gì?
+
