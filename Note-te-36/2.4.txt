@@ -1,0 +1,4 @@
+Bài 2.4: Các class trong Identity Framework
+SignManager
+.........
+Chú ý hiểu luồng
