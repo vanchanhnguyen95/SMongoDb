@@ -1,0 +1,11 @@
+1.5; Các microservices giao tiếp thế nào?
+1. Synchronous protocol: đồng bộ
+Client sẽ gửi 1 request tới server và nó sẽ đợi cho tới khi nào server phản hồi.
+Thuộc tính của thằng này gần như block lại hết.
+Client nó chỉ có thể tiếp tục chạy, thực hiện các task còn lại chỉ khi nào nhậ được phần hồi từ http server.
+- Bản chất async , await là nó chỉ trả tài nguyên về lại cho cpu, nso đợi cho cpu làm chuyện khác, thực tế nó vẫn đứng đợi
+
+2. Bất đồng bộ
+- Client nó sẽ không gửi request mà dạng request chờ đợi, nó chỉ gửi message thôi
+
+Giao tiếp bất đồng bộ dùng: Polling
