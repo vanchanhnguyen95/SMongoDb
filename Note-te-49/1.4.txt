@@ -1,0 +1,9 @@
+1.4: Microservices architecture principles
+
+Có 5 nguyên lý khi triển khai microservice nên tuân thủ:
+- 1 microservice nó chỉ có 1 single concern thôi. Có nghĩa là nó chỉ xử lý ở đúng nghiệp vụ của nó thôi. Nó giống như Single object responsibility
+- Bản thân 1 microservice nó phải có tính riêng rẽ (discrete)
+- 1 microservice có thể di chuyển được từ môi trường chạy này sang môi trường khác mà ko tốn nhiều thời gian, công sức
+- 1 microservice nên chứa dữ liệu chính nó và không chứa data của những thằng khác, nó chỉ share qua public interface thôi
+ Đôi khi bị gặp lỗi của phát triển phần mềm là: Do not Repeate
+- 1 microservice là vô thường vì: 1 microservice có thể xóa đi, tạo lại, vòng đời có thể ngắn hay dài
