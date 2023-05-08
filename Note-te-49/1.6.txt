@@ -1,0 +1,18 @@
+1.6: Giới thiệu tổng quan về dự án Microservices và phạm vi dự án
+aspnetcore Microservices project
+
+- Có Api Gateways: nó giống như 1 cái cổng đứng chặn ở giữa. Bên front end muốn gửi request đến bên trong thì cần đi qua thằng này trước. Api Gateway đóng vai trò là 1 Gateway để nó routing lại các url, nó giúp cho các thằng client ở bên ngoài.
+- Bản thân Api Gateway nó đóng vai trò là 1 loadblancer luôn để nó cân bằng tải các request, thậm chí là nó cache được luôn dữ liệu.
+- Webstatus: kiểm tra tất cả các webservice hoạt động có tốt hay không, sẽ có 1 website nhỏ.
+- Identity 5001: này sẽ làm cuối cùng: dùng SQL Server
+- Product API 5002
+- Customer API 5003
+- Mặc dù dùng 2 MongoDb nhưng sẽ tạo nhiều port khác nhau cũng được, tương tự với SQL Server
+- Basket API 5004, sử dụng Redis
+- Ordering API 5005: sử dụng Clean Architector (CQRS)
+- Inventory API 5006: chuyên tính tồn kho cho product
+Inventory sau khi tính toan xong sẽ tự động gửi message lên Rabbit Linq. Product API sẽ tự động consume message đấy, nó sẽ tự động update vào field tồn kho của nó (giống như tồn kho động)
+- Background Job Service 5007: chuyên xử lý các task nền: ví dụ sau 12h đêm nó tự động quét hết database để nó clean hết các dòng nào dư thừa, nó clear cái log, hoặc gửi mail chúc mừng sinh nhật khách hàng.
+- Email Service: sử dụng Google SMTP: dễ xài, free, làm luôn phần email template
+ Elasticsearch ghi log, dùng kibana phân tích perfomance, log
+ - Docker: giúp chúng ta có thể conterno rize luôn
