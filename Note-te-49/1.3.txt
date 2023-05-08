@@ -1,0 +1,5 @@
+1.3: Service-oriented architecture (SOA)
+kiến trúc phần mềm hướng theo dạng dịch vụ
+- Định nghĩa: SOA là 1 loại của 1 phương pháp thiết kế phần mềm mà nó làm cho tất cả các thành phần component có thể tái sử dụng và sử dụng bằng cách thông qua interfacr, nó có thể giao tiếp qua mạng internet
+- SOA ngày càng triển khai rộng rãi vì các phần mềm ngày nay ngày càng trở nên phức tạp và nó gần như vượt quá khả năng phát triển phần mềm hiện có.
+- SOA là 1 tập hợp các dịch vụ trên mạng nó chuẩn hóa
