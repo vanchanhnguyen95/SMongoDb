@@ -1,0 +1,2 @@
+Bài 2.5: Tìm hiểu về Claim
+Để lấy thông tin Claim chỉ cần gọi User
