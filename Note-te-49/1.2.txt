@@ -1,0 +1,19 @@
+1.2: Monolithic architecture vs Microservices
+
+Monolithic:
+- hợp team nhỏ
+- chỉ làm project nhỏ cụ thể
+- rất nhanh để phát triển, đưa ra thị trường nhanh
+- ko phụ thuộc dependencies khác.
+
+Microservices:
+- Có khả năng build độc lập, ko phụ thuộc lãn nhau:\
+- deploy độc lập
+- Những team detail hoạt động cụ thể
+- làm việc thông qua interface, api
+- 1 cái gì lớn thì có xu hương thành những cái nhỏ hơn => gọi là microservice
+
+Pros:
+- chỉ tốt ứng dụng lớn
+- Về lâu dài: tốt hơn monolothic
+- Easy to learn
