@@ -1,0 +1,7 @@
+1.1: Tổng quan về microservices
+khó khăn trong phần bắt đầu để mà chúng ta phân tách ra từng ứng dụng nhỏ, tuy nhiên đối ứng dụng lớn thì có lợi
+*** Lợi ích:
+- Sự nhanh nhạy: Vì tất cả các chức năng, function đã được phân tán thì nó cho phép các nhà phát triển họ sẽ deploy nhanh hơn 1 cách liên tục và tự động với các team khác
+- Cho phép các developer có thể lựa chọn độc lập framework,..
+- Khả năng microservices thiết kế cho các vấn đề phát sinh lỗi
+- Tính hiệu quả: vì đối với doanh nghiêp thì phần chi phí là cần thiết
