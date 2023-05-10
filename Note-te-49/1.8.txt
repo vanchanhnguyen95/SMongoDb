@@ -1,0 +1,11 @@
+1.8: Xây dựng phần hạ tầng (infrastructure) cho dự án với Docker container
+
+*** Trong thư mục src
+** Thêm file:
+- docker-compose.yml
+- docker-compose.override.yml: triển khai 1 số service ở docker-compose ở trên tạo ra
+
+Câu lệnh chạy docker:
+docker-compose -f docker-compose.yml docker-compose.override.yml up -d --remove-orphans
+
+- Mysql thì dùng Mysql Workbench
