@@ -1,0 +1,14 @@
+1.9: Triển khai Logger Service với Serilog
+
+phần Logging dùng Serilog
+<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+      <PackageReference Include="Serilog.Enrichers.Environment" Version="2.2.0" />
+      <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.0" />
+	  
+Tạo common ghi log: Serilogger.cs
+
+Rồi Add reference cho:
+- Product.API
+- Basket.API
+
+Sau này triển khai elasticsearch thì tất cả các log này ghi vào elasticsearch hết
