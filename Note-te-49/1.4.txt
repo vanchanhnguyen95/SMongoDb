@@ -6,4 +6,4 @@ Có 5 nguyên lý khi triển khai microservice nên tuân thủ:
 - 1 microservice có thể di chuyển được từ môi trường chạy này sang môi trường khác mà ko tốn nhiều thời gian, công sức
 - 1 microservice nên chứa dữ liệu chính nó và không chứa data của những thằng khác, nó chỉ share qua public interface thôi
  Đôi khi bị gặp lỗi của phát triển phần mềm là: Do not Repeate
-- 1 microservice là vô thường vì: 1 microservice có thể xóa đi, tạo lại, vòng đời có thể ngắn hay dài
+- 1 microservice là vô thường vì: 1 microservice có thể xóa đi, tạo lại, vòng đời có thể ngắn hay dài.

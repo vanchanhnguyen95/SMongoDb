@@ -15,4 +15,4 @@ Inventory sau khi tính toan xong sẽ tự động gửi message lên Rabbit Li
 - Background Job Service 5007: chuyên xử lý các task nền: ví dụ sau 12h đêm nó tự động quét hết database để nó clean hết các dòng nào dư thừa, nó clear cái log, hoặc gửi mail chúc mừng sinh nhật khách hàng.
 - Email Service: sử dụng Google SMTP: dễ xài, free, làm luôn phần email template
  Elasticsearch ghi log, dùng kibana phân tích perfomance, log
- - Docker: giúp chúng ta có thể conterno rize luôn
+- Docker: giúp chúng ta có thể conterno rize luôn

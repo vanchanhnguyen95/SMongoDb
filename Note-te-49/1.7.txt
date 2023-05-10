@@ -1,0 +1,55 @@
+1.7: Xây dựng cấu trúc dự án
+I. Solution Items
+- global.json
+- README.md
+
+II.src
+1. ApiGateways
+	OcelotApiGw (WebAPI)
+2. BuildingBlocks
+Common.Logging (Class library)
+
+** Thêm dự án mới trong BuildingBlocks:
+*Contracts (Class library):
+có thể hiểu rằng nó là 1 hợp đồng: để đảm bảo rằng tất cả các microservice khi mà triển khai nó phải tuân thủ 1 cái gọi là cái pattern chung.
+
+* Infrastructure(Class library):
+- phần Hạ tầng
+- để triển khai tất cả hạ tầng mà contracts đưa ra để cho các servies sử dụng.
+
+* Shared:
+Những gì mà các microservice có thể shared với nhau, ví dụ như các file DTO hay những phần cấu hình thì mình sẽ để hết vào trong project shared.
+
+3. Services
+	3.1. Basket: Basket.API
+		- Web API
+		- Ko Authentication
+		- Ko hỗ trợ docker
+		- Đây là dự án quản lý các giỏ hàng
+
+	3.2. Customer : Customer.API
+		- Web API
+		- Quản lý khách hàng
+		- Có sử dụng Aminimal API (được học thêm)
+
+	3.3. Inventory
+		- Để tính tồn kho
+		- Inventory.Product.API
+		- Kết hợp với background job servies để giải quyết bài toán tồn kho, lên đến hàng triệu, hàng tỉ dòng cho các bạn xem luôn
+
+	3.4. Ordering
+		- Ordering.API
+
+	3.5. Product
+		- Product.API
+
+	3.6. ScheduledJob
+		- Sử dụng background của thằng Hangfire:
+		Nó quản lý và xử lý phần background rất hay: đầy đủ tất cả chức năng chúng ta cần
+
+
+
+
+4. WebApps
+	WebHealthStatus (Web app - Model View Controller)
+
