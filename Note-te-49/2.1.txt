@@ -1,0 +1,68 @@
+2.1: Khởi tạo các Entity, Dtos, Repository Pattern cho Product Microservices
+
+Tại sao DateTimeOffSet tốt hơn Date
+
+- Cài Pomelo.EntityframeworkCore
+
+dotnet ef migration add "Init_ProductDB"
+donnet ef database update
+
+****** Xây dựng ra các entity cho các API: Product.API*****
+**** Vào file launchSettings.json:
+- Chỉnh lại port là 5002, lưu ý ko dùng https
+ "applicationUrl": "http://localhost:5002",
+ 
+****Tao folder extensions
+- ApplicationExtensions.cs
+	những dòng này copy từ program qua cho gọn
+- HostExtensions.cs
+	dùng để đọc những file app setting
+	tùy theo môi trường mà chúng ta build vào nó sẽ load file appsettings.json phù hợp
+	+ Những gì chung nhất thì sẽ để trong file appsettings.jon, những gì chỉ trong development mới có thì sẽ để trong development
+	
+- ServiceExtensions.cs
+	 services.Configure<RouteOptions>(options => options.LowercaseUrls = true); (tất cả mọi api phải chữ thường hết)
+
+copy những dòng từ file program, mục đích giảm độ dài file program chứ ko có gì phức tạp
+
+Chạy link thử test: http://localhost:5002/swagger/index.html
+
+**** Tạo Entity
+- Tạo folder Entities
+	Tạo class Product
+	
+- Gặp vấn đề khi đổi kiểu của column Id thì phải sửa lâu, ko hay lắm
+=> Giải quyết trong phần Contracts > Domains : chứa những interface chung cho toàn bộ hệ thống
+
+- Add reference từ contract vào Product.API
+
+- Tao Folder Persistence
+	Chứa ProductContext, kế thừa từ lớp DbContext
++ Để có DbContext thì cài using Microsoft.EntityFrameworkCore ver 6.0.6; chứ ko phải using Microsoft.EntityFramework 6 nha
+
+- update Extensions > ServiceExtensions.cs
+
+Thêm ConfigureProductDbContext để file Program gọn hơn
+
+
+dotnet ef database update
+
+
+
+*** Repository Pattern
+mình sẽ định nghĩa các repository pattern ở trong thằng contract
+- contract> Common> Interfaces:
+ + IRepositoryBaseAsync.cs
+ + IUnitOfWork.cs
+ Sẽ implement những interface này ở Infrastructure
+ 
+ 
+*** Vào Product.API add reference Contracts
+Phải add IRepositoryBaseAsync vào ServiceExtensions thì hệ thống mới hiểu mà dùng được repository
+
+** Trong Product.API:
+ Tạo thêm 1 Repositories Product để giảm thêm 1 sự phụ thuộc nữa:
+ - Chỉ viết nhưng cái mình cần mà thôi
+ - Tạo cái mới vẫn phải vào đăng ký addScope trong ServiceExtensions.cs
+ - Cách viết này sẽ gọn khi viết chỗ controller
+ 
