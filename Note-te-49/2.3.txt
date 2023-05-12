@@ -1,0 +1,18 @@
+2.3: Chạy thử Product.API Microservices trong môi trường Development
+***** Sửa lại chút ProductContext.cs
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<CatalogProduct>().HasIndex(x => x.No)
+            .IsUnique();
+    }
+- Chạy lại migrations
+dotnet ef migrations add "Product_Set_No_IsUnique"
+-> Tạo role khi viết migartion: [tên bảng_thay đổi"
+	
+
+**** Sửa lại BuildingBlocks > Shared > Dtos
+Phân ra được 2 tình huống Create,Update Dto rõ ràng hơn
+
+
+**** Testing Product API with Postman
