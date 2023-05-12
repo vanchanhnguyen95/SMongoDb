@@ -1,0 +1,13 @@
+3.1: Tìm hiểu về PostgreSQL
+- Sẽ triển khai Customer API với Minimal API và PostgreSQL
+
+
+**** PostgreSQL
+- Là 1 hệ quản trị csdl quan hệ đối tượng và nó được thiết kế
+- Được nhiều ông lớn về cloud sử dụng
+- Có thằng Shared Memory (sự cái tiến lớn):
+ ghi đọc dữ liệu là nhờ thằng này
+ + tất cả dữ liệu khi mà ghi vào, ghi vào đồng thời hàng terabyte
+ + ngày xưa đã có ghi cùng 1 lúc hàng terabyte => Bulk Insert
+- Nhật ký ghi trước
+- Bảo mật theo từng dòng, từng cột
