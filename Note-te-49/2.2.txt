@@ -1,0 +1,18 @@
+2.2: Triển khai các phương thức CRUD cho Product.API
+*** Có thêm 1 cái mới là Mapper:
+*** Để sử dụng Mapper thì cần cài thêm 2 library:
+- AutoMapper 11.0.1
+- AutoMapper.Extension.Microsoft.DependencyInjection 11.0.1
+
+*** Khai báo AutoMapper trong  Extensions> ServiceExtensions.cs
+
+
+*** Tạo các Product Dto
+
+*** Tạo file MappingProfile.cs
+
+*** Viết thêm AutoMapperExtensions.cs
+- IgnoreAllNonExisting: thằng này sẽ quét qua source và Destination, tất cả các field.
+Khi mà nó quét qua, nó kiểm tra giữa source và Destination mà ko khai báo field đó thì nó sẽ bỏ qua
+
+- Viết thêm GetProductByNo
